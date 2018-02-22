@@ -10,4 +10,3 @@ $pdo = new PDO('mysql:host=localhost;dbname=website;charset=utf8', 'root', '', a
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_EMULATE_PREPARES => false
 ));
-jfkdsjlk
