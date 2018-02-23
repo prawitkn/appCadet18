@@ -6,10 +6,10 @@
     $userFullname = $_POST['userFullname'];
     $userName = $_POST['userName'];
     $userPassword = $_POST['userPassword'];
-    $userEmail = $_POST['userEmail'];
-    $userTel = $_POST['userTel'];
+    $userEmail = '';//$_POST['userEmail'];
+    $userTel = '';//$_POST['userTel'];
 	$userGroupCode = $_POST['userGroupCode'];
-	$smId = $_POST['smId'];
+	$smId = 0;//$_POST['smId'];
 	$statusCode = $_POST['statusCode'];
     
 	$curPhoto = $_POST['curPhoto'];
@@ -18,7 +18,7 @@
 	
 	
  // Check user name duplication?
-    $sql = "SELECT userName,userPassword, userPicture FROM user WHERE userId=$userId ";
+    $sql = "SELECT userName,userPassword, userPicture FROM cadet18_user WHERE userId=$userId ";
     //$result_user = mysqli_query($link, $sql_user);
     //$is_user = mysqli_num_rows($result_user);
 	
@@ -57,7 +57,7 @@
     }
 	
     
-	$sql = "UPDATE `user` SET `userName`=:userName 
+	$sql = "UPDATE `cadet18_user` SET `userName`=:userName 
 	, `userPassword`=:userPassword
 	, `userFullname`=:userFullname
 	, `userEmail`=:userEmail 

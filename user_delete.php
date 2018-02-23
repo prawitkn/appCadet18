@@ -8,7 +8,7 @@ try{
 	$pdo->beginTransaction();
 	
 	//delete image
-	$sql = "SELECT userPicture FROM user WHERE userId=:id ";
+	$sql = "SELECT userPicture FROM cadet18_user WHERE userId=:id ";
 	$result_img = mysqli_query($link, $sql);
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':id', $id);
@@ -17,7 +17,7 @@ try{
 	
 	@unlink('./dist/img/'.$row['userPicture']);
 
-	$sql = "DELETE FROM user WHERE userId=:id ";
+	$sql = "DELETE FROM cadet18_user WHERE userId=:id ";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':id', $id);
 	$stmt->execute();

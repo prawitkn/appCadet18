@@ -33,8 +33,8 @@ $id=$_GET['id'];
 $sql = "SELECT hdr.`userId` as id, hdr.`userName`, hdr.`userPassword`, hdr.`userFullname`, hdr.`userGroupCode`
 , hdr.`smId`, hdr.`userEmail`, hdr.`userTel`, hdr.`userPicture`, hdr.`statusCode` 
 , ug.`name` as userGroupName 
-FROM `user` hdr 
-LEFT JOIN user_group ug on ug.code=hdr.userGroupCode  
+FROM `cadet18_user` hdr 
+LEFT JOIN cadet18_user_group ug on ug.code=hdr.userGroupCode  
 WHERE 1=1
 AND hdr.userId=:id 
 ";
@@ -92,16 +92,6 @@ $smId=$row['smId'];
                             <label for="userFullname">User Fullname</label>
                             <input id="userFullname" type="text" class="form-control" name="userFullname" value="<?=$row['userFullname'];?>" data-smk-msg="Require userFullname."required>
                         </div>
-                        
-                        
-                        <div class="form-group">
-                            <label for="userEmail">User Email</label>
-                            <input id="userEmail" type="email" class="form-control" name="userEmail" value="<?=$row['userEmail'];?>" data-smk-msg="Require userEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="userTel">Telephone</label>
-                            <input id="userTel" type="text" class="form-control" name="userTel" value="<?=$row['userTel'];?>" data-smk-msg="Require Telephone number" required>                        
-						</div>
 					</div>
 					<!--/.col-md-->
 					<div class="col-md-6">
@@ -110,7 +100,7 @@ $smId=$row['smId'];
 							<select id="userGroupCode" name="userGroupCode" class="form-control"  data-smk-msg="Require User Group" required>
 								<option value=""> -- Select -- </option>
 								<?php
-								$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `user_group` WHERE statusCode='A' ";							
+								$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `cadet18_user_group` WHERE statusCode='A' ";							
 								$stmt = $pdo->prepare($sql);		
 								$stmt->execute();
 								while($rOption = $stmt->fetch()){
@@ -122,29 +112,6 @@ $smId=$row['smId'];
 								?>
 							</select>
 						</div>		
-						<div class="form-group">
-							<label for="smId">Salesman</label>
-							<select id="smId" name="smId" class="form-control"  data-smk-msg="Require User Group" >
-								<option value="0"> -- Select -- </option>
-								<?php
-								$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `salesman` WHERE statusCode='A' ";							
-								$stmt = $pdo->prepare($sql);		
-								$stmt->execute();
-								while($rOption = $stmt->fetch()){
-									$selected = ($rOption['id']==$smId?' selected ':'');									
-									echo '<option value="'.$rOption['id'].'" '
-										.$selected
-										 .'>'.$rOption['code'].' : ['.$rOption['name'].']</option>';
-								}
-								?>
-							</select>
-						</div>	
-                        <!--<div class="form-group">
-							<img src="dist/img/<?=$row['userPicture'];?>" style="width: 100px; height:100px; border: 1px solid black;" /><br/>
-                            <label for="userPicture">Choose personal picture file input.</label>
-                            <input type="file" id="userPicture" name="userPicture">
-                            <p class="help-block">Please select picture file .jpg, .png, .gif</p>
-                        </div>-->
 						<div class="form-group">
                             <label for="statusCode">Status</label>
 							<input type="radio" name="statusCode" value="A" <?php echo ($row['statusCode']=='A'?' checked ':'');?> >Active

@@ -72,14 +72,14 @@ switch($s_userGroupCode){
                             <label for="userFullname">User Fullname</label>
                             <input id="userFullname" type="text" class="form-control" name="userFullname" data-smk-msg="Require userFullname."required>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="userEmail">User Email</label>
                             <input id="userEmail" type="email" class="form-control" name="userEmail" data-smk-msg="Require userEmail" required>
                         </div>
                         <div class="form-group">
                             <label for="userTel">Telephone</label>
                             <input id="userTel" type="text" class="form-control" name="userTel" data-smk-msg="Require Telephone number" required>                        
-						</div>
+						</div>-->
 					</div>
 					<!--/.col-md-->
 					<div class="col-md-6">
@@ -88,7 +88,7 @@ switch($s_userGroupCode){
 							<select id="userGroupCode" name="userGroupCode" class="form-control"  data-smk-msg="Require User Group" required>
 								<option value=""> -- Select -- </option>
 								<?php
-								$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `user_group` WHERE statusCode='A' ";							
+								$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `cadet18_user_group` WHERE statusCode='A' ";							
 								$stmt = $pdo->prepare($sql);		
 								$stmt->execute();
 								while($row = $stmt->fetch()){
@@ -98,26 +98,6 @@ switch($s_userGroupCode){
 								?>
 							</select>
 						</div>	
-						<div class="form-group">
-							<label for="smId">Salesman</label>
-							<select id="smId" name="smId" class="form-control"  >
-								<option value="0"> -- Select -- </option>
-								<?php
-								$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `salesman` WHERE statusCode='A' ";							
-								$stmt = $pdo->prepare($sql);		
-								$stmt->execute();
-								while($row = $stmt->fetch()){
-									echo '<option value="'.$row['id'].'" 
-										 >'.$row['code'].' : ['.$row['name'].']</option>';
-								}
-								?>
-							</select>
-						</div>							
-                        <!--<div class="form-group">
-                            <label for="userPicture">Choose personal picture file input.</label>
-                            <input type="file" id="userPicture" name="userPicture">
-                            <p class="help-block">Please select picture file .jpg, .png, .gif</p>
-                        </div>-->
 						<div class="form-group">
 							<input type="hidden" name="curPhoto" id="curPhoto" value="<?=$row['photo'];?>" />
 							<input type="file" name="inputFile" accept="image/*" multiple  onchange="showMyImage(this)" /> <br/>

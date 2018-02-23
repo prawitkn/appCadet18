@@ -6,13 +6,13 @@
     $userFullname = $_POST['userFullname'];
     $userName = $_POST['userName'];
     $userPassword = mysqli_real_escape_string($link, $_POST['userPassword']);
-    $userEmail = $_POST['userEmail'];
-    $userTel = $_POST['userTel'];
+    $userEmail = '';//$_POST['userEmail'];
+    $userTel = '';//$_POST['userTel'];
 	$userGroupCode = $_POST['userGroupCode'];
-	$smId = $_POST['smId'];
+	$smId = 0;//$_POST['smId'];
     
  // Check user name duplication?
-    $sql_user = "SELECT userName FROM user WHERE userName='$userName'";
+    $sql_user = "SELECT userName FROM cadet18_user WHERE userName='$userName'";
     $result_user = mysqli_query($link, $sql_user);
     $is_user = mysqli_num_rows($result_user);
     if ($is_user >= 1){
@@ -35,7 +35,7 @@
     }
 	
     
-    $sql = "INSERT INTO `user` (`userName`, `userPassword`, `userFullname`, `userEmail`, `userTel`, `userPicture`, `userGroupCode`,  `smId`, `statusCode`)"
+    $sql = "INSERT INTO `cadet18_user` (`userName`, `userPassword`, `userFullname`, `userEmail`, `userTel`, `userPicture`, `userGroupCode`,  `smId`, `statusCode`)"
             . " VALUES ('$userName', '$hash_userPassword', '$userFullname', '$userEmail', '$userTel', '$new_picture_name', '$userGroupCode', $smId,'A')";
  
     $result = mysqli_query($link, $sql);

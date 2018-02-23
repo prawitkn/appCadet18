@@ -1,5 +1,6 @@
 <?php
-include 'db/database.php';
+include_once 'session.php';
+
 $tb = "cadet18_user";
 
 //$userName = mysqli_real_escape_string($link,$_POST['userName']);

@@ -61,8 +61,8 @@ switch($s_userGroupCode){
 				$search_word="";
                 $sql = "
 				SELECT COUNT(*) AS countTotal 
-				FROM `user` hdr 
-				LEFT JOIN wh_user_group ug on ug.code=hdr.userGroupCode  ";
+				FROM `cadet18_user` hdr 
+				LEFT JOIN cadet18_user_group ug on ug.code=hdr.userGroupCode  ";
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$search_word=$_GET['search_word'];
 					$sql .= "and (hdr.userFullname like '%".$_GET['search_word']."%' ) ";
@@ -105,8 +105,8 @@ switch($s_userGroupCode){
 				$sql = "
 				SELECT `userID` as id, `userName`, `userPassword`, `userFullname`, `userGroupCode`, `userEmail`, `userTel`, `userPicture`, hdr.`statusCode` 
 				, ug.`name` as userGroupName 
-				FROM `user` hdr 
-				LEFT JOIN user_group ug on ug.code=hdr.userGroupCode  
+				FROM `cadet18_user` hdr 
+				LEFT JOIN cadet18_user_group ug on ug.code=hdr.userGroupCode  
 				WHERE 1=1 ";
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$search_word=$_GET['search_word'];

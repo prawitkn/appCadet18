@@ -146,7 +146,7 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
 
-$pdf->setLanguageArray($l);
+//$pdf->setLanguageArray($l);
 
 
 
@@ -159,34 +159,6 @@ $pdf->setLanguageArray($l);
 //$pdf->SetFont('THSarabun', '', 16);
 $pdf->SetFont('THSarabun', '', 14);
 
-
-
-
-
-
-// create some HTML content
-
-//include('connectdb.inc.php');
-
-
-
-//if ($_GET['list'] == "all") {
-
-//        $sql = "select * from retire58_tab";
-
-//		$text = "รายชื่อทั้งหมด";
-
-//}
-
-
-
-//if ($_GET['list'] == "regis") {
-
-//        $sql = "select * from retire58_tab where status = 1";
-
-//		$text = "รายชื่อเฉพาะลงทะเบียน";
-
-//}
 
 $sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`, `randCode`, `position`, `workPlace`
 , `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`, `person_type`, `groupCode`, `group2code`, `group2Name`, `status`, `retireYear` 
@@ -235,42 +207,97 @@ while ($result = $stmt->fetch()) {
 	}*/
 	if($iperpage == 0){
 		 $pdf->AddPage();	
-		 $ititle = $result['group2name'];
-		/*$html = '<style type="text/css">.style1 {color: #000000; }</style>
-
-				<div align="center"><strong>'.$ititle.'</strong></div><br>
-				<table width="100%" class="style1" cellpadding="5" cellspacing="0" align="center">';*/
+		 $ititle = $result['group2Name'];
+		 $pdf->Cell(50, 0,'บัญชีรายชื่อ '. $ititle, 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+		 $pdf->Ln(6);
+		
 	}
 	
-	if($ititle != $result['group2name']){
+	if($ititle != $result['group2Name']){
 		if($iperpage != 0){	 
-		//	$html .= '</table>';
 			//$pdf->writeHTML($html, true, false, true, false, '');
 		}
 		$pdf->AddPage();	
-		$ititle =  $result['group2name'];;
-	/*	$html = '<style type="text/css">.style1 {color: #000000; }</style>
-
-				<div align="center"><strong>'.$ititle.'</strong></div><br>
-				<table width="100%" class="style1" cellpadding="5" cellspacing="0" align="center">';*/
+		$ititle =  $result['group2Name'];;
+		$pdf->Cell(50, 0,'บัญชีรายชื่อ '. $ititle, 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+		$pdf->Ln(6);
 		$iperpage = 0;
 	}
-	
 	//$html .= '<tr>';
 	if (file_exists('images/'.$result['photo'])) {
 		if(trim($result['photo'])<>""){
 			//$html .= '<td width="25%" style="border-bottom: 1px solid black;"><div align="center"><img src="images/'.$result['photo'].'" height="160"></div></td>';
 			$img='images/'.$result['photo'];
-			$pdf->Image($img,0,0,160);
+			//$pdf->Image($img);
+			//image width=150px;
+			//$pdf->Image('@' . $img,xFromTop, yFromTop,'JPG');
+			switch($iperpage){
+				case 0 : $pdf->Image($img,10,35,50,50,'JPG');
+					break;
+				case 1 : $pdf->Image($img,10,95,50,50,'JPG');
+					break;
+				case 2 : $pdf->Image($img,10,155,50,50,'JPG');
+					break;
+				case 3 : $pdf->Image($img,215,200,50,50,'JPG');
+					break;
+				default :
+			}
+			
 		}
 		//$html .= '<td width="25%" style="border-bottom: 1px solid black;"><div align="center"><img src="images/no_pic.jpg" height="160"></div></td>';
 	}else{
 		//$html .= '<td width="25%" style="border-bottom: 1px solid black;"><div align="center"><img src="images/no_pic.jpg" height="160"></div></td>';
+		$img='images/no_pic.jpg';
+			//$pdf->Image($img);
+			//image width=150px;
+			//$pdf->Image('@' . $img,xFromTop, yFromTop,'JPG');
+			switch($iperpage){
+				case 0 : $pdf->Image($img,10,35,50,50,'JPG');
+					break;
+				case 1 : $pdf->Image($img,10,95,50,50,'JPG');
+					break;
+				case 2 : $pdf->Image($img,10,155,50,50,'JPG');
+					break;
+				case 3 : $pdf->Image($img,215,200,50,50,'JPG');
+					break;
+				default :
+			}
 	}
-	
-	$pdf->Cell(45, 0, 'ยศ ชื่อ นามสกุล : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
-	$pdf->Cell(45, 0, $result['fullname'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, 'ยศ ชื่อ นามสกุล : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(50, 0, $result['fullname'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(25, 0, 'ชื่อเล่น : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(25, 0, $result['nickname'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Ln(6);
+	
+	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, 'กำเนิด : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(10, 0, $result['origin'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(10, 0, 'รุ่น : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(10, 0, $result['genNo'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(20, 0, 'เหล่า/พรรค : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(10, 0, $result['subService'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Ln(6);
+	
+	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, 'ตำแหน่ง : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(200, 0, $result['position'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Ln(6);
+	
+	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, 'สถานที่ทำงาน : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(200, 0, $result['workPlace'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Ln(6);
+	
+	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, 'เกิดเมื่อ : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(25, 0, to_thai_short_date($result['dateOfBirth']), 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Ln(6);
+	
+	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, 'โทรมือถือ : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(100, 0, $result['mobileNo'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Ln(30);
 	
 	
 	/*$html .= '
@@ -298,8 +325,7 @@ while ($result = $stmt->fetch()) {
   $iperpage += 1;
 	
   if($iperpage == 4){
-	//  $html .= '</table>';
-	//  $pdf->writeHTML($html, true, false, true, false, '');
+	  //$pdf->writeHTML($html, true, false, true, false, '');
 	  
 	   
 	  
