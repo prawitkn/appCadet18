@@ -16,7 +16,11 @@
       </div> 
 	
       <ul class="sidebar-menu">
-				
+		<li class="header">ข้อมูล</li>
+		<?php switch($s_userGroupCode){ case 'admin' : ?>			
+			<li><a href="person.php"><i class="fa fa-bars"></i> <span> ผู้คน </span></a></li>			
+		<?php break; default : } ?>
+		
 		<li class="header">รายงาน</li>
 		<?php switch($s_userGroupCode){ case 'admin' : ?>			
 			<li><a href="report_person.php"><i class="fa fa-bars"></i> <span> รายชื่อ นตท.18 </span></a></li>			
