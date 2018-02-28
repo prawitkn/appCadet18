@@ -118,7 +118,7 @@ function to_mysql_date($thai_date){
 				$title = $_POST['title'];
 				$name = $_POST['name'];
 				$surname = $_POST['surname'];
-				$fullname = $title.' '.$name.'  '.$surname;
+				$fullname = '';
 				$nickname = $_POST['nickname'];
 				$origin = $_POST['origin'];
 				$genNo = $_POST['genNo'];
@@ -137,7 +137,7 @@ function to_mysql_date($thai_date){
 				$curPhoto = $_POST['curPhoto'];				
 				$photo="";
 				// Check user name duplication?
-				$sql = "SELECT id FROM cadet18_person WHERE id=:id LIMIT 1 ";
+				$sql = "SELECT id, fullname FROM cadet18_person WHERE id=:id LIMIT 1 ";
 				$stmt = $pdo->prepare($sql);	
 				$stmt->bindParam(':id', $id);
 				$stmt->execute();	
@@ -146,7 +146,9 @@ function to_mysql_date($thai_date){
 				  $errors = "Error on Data Update. Please try new username. " . $pdo->errorInfo();
 				  echo json_encode(array('success' => false, 'message' => $errors));  
 				  exit;    
-				} 			
+				}
+				$row=$stmt->fetch();
+				
 			  
 				//inputFile
 				if (is_uploaded_file($_FILES['inputFile']['tmp_name'])){
@@ -185,7 +187,11 @@ function to_mysql_date($thai_date){
 				$stmt->bindParam(':title', $title);
 				$stmt->bindParam(':name', $name);
 				$stmt->bindParam(':surname', $surname);
-				$fullname=$title.' '.$name.'  '.$surname;
+				if($title<>"" AND $name<>"" AND $surname<>""){
+					$fullname=$title.' '.$name.'  '.$surname;				
+				}else{
+					$fullname=$row['fullname'];
+				}
 				$stmt->bindParam(':fullname', $fullname);
 				$stmt->bindParam(':nickname', $nickname);
 				$stmt->bindParam(':origin', $origin);
@@ -213,9 +219,56 @@ function to_mysql_date($thai_date){
 					  echo json_encode(array('success' => false, 'message' => $errors));
 				}	
 				break;
-			case 'setStatus' :
+			case 'setActive' :
+				$id = $_POST['id'];
+				$statusCode = $_POST['statusCode'];	
+				
+				$sql = "UPDATE cadet18_person SET statusCode=:statusCode WHERE id=:id ";
+				$stmt = $pdo->prepare($sql);	
+				$stmt->bindParam(':statusCode', $statusCode);
+				$stmt->bindParam(':id', $id);
+				$stmt->execute();	
+				if ($stmt->execute()) {
+				  header('Content-Type: application/json');
+				  echo json_encode(array('success' => true, 'message' => 'Data Updated Complete.'));
+				} else {
+				  header('Content-Type: application/json');
+				  $errors = "Error on Data Update. Please try new data. " . $pdo->errorInfo();
+				  echo json_encode(array('success' => false, 'message' => $errors));
+				}	
+				break;
+			case 'remove' :
+				$id = $_POST['id'];
+				
+				$sql = "UPDATE cadet18_person SET statusCode='X' WHERE id=:id ";
+				$stmt = $pdo->prepare($sql);	
+				$stmt->bindParam(':id', $id);
+				$stmt->execute();	
+				if ($stmt->execute()) {
+				  header('Content-Type: application/json');
+				  echo json_encode(array('success' => true, 'message' => 'Data Updated Complete.'));
+				} else {
+				  header('Content-Type: application/json');
+				  $errors = "Error on Data Update. Please try new data. " . $pdo->errorInfo();
+				  echo json_encode(array('success' => false, 'message' => $errors));
+				}	
 				break;
 			case 'delete' :
+				$id = $_POST['id'];
+				$statusCode = $_POST['statusCode'];	
+				
+				$sql = "DELETE FROM cadet18_person WHERE id=:id ";
+				$stmt = $pdo->prepare($sql);	
+				$stmt->bindParam(':id', $id);
+				$stmt->execute();	
+				if ($stmt->execute()) {
+				  header('Content-Type: application/json');
+				  echo json_encode(array('success' => true, 'message' => 'Data Updated Complete.'));
+				} else {
+				  header('Content-Type: application/json');
+				  $errors = "Error on Data Update. Please try new data. " . $pdo->errorInfo();
+				  echo json_encode(array('success' => false, 'message' => $errors));
+				}	
 				break;
 			default : 
 				header('Content-Type: application/json');

@@ -92,8 +92,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			</div>-->
            <?php
                 $sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`
-				, `randCode`, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
-				, `person_type`, `groupCode`, `group2code`, `group2Name`, `status`, `retireYear` 
+				, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
+				, `groupCode`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
 				FROM cadet18_person a
 				WHERE 1 ";
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){

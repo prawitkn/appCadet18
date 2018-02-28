@@ -156,6 +156,11 @@ switch($s_userGroupCode){
                     </td>
                     <td>
                          <?=$statusName; ?>
+						 <?php if($row['statusCode']=='A'){ ?>
+							 <a class="btn btn-success" name="btn_row_setActive" data-statusCode="I" data-id="<?= $row['id']; ?>" >Active</a>
+						 <?php }else{ ?>
+							 <a class="btn btn-default" name="btn_row_setActive" data-statusCode="A" data-id="<?= $row['id']; ?>" >Inactive</a>
+						 <?php } ?>
                     </td>
 					<td>					
 						<a class="btn btn-success fa fa-edit" name="btn_row_edit" href="<?=$rootPage;?>_edit.php?id=<?=$row['id'];?>" ></a> 						
@@ -225,13 +230,73 @@ $(document).ready(function() {
 	  e.preventDefault();
 	});
 	
-	/*$("a[name=btn_row_remove]").click(function(e) {
-	  var row_id = $(this).attr('data-id');
-	  $.smkConfirm({text:'Are you sure you want to remove?',accept:'OK Sure.', cancel:'Do not remove.'}, function (e){if(e){
-			  window.location.replace('<?=$rootPage;?>_remove.php?id='+row_id);
-	  }});
-	  e.preventDefault();
-	});	*/
+	$('a[name=btn_row_setActive]').click(function(){
+		var params = {
+			action: 'setActive',
+			id: $(this).attr('data-id'),
+			statusCode: $(this).attr('data-statusCode')			
+		};
+		$.smkConfirm({text:'Are you sure ?',accept:'Yes', cancel:'Cancel'}, function (e){if(e){
+			$.post({
+				url: '<?=$rootPage;?>_ajax.php',
+				data: params,
+				dataType: 'json'
+			}).done(function (data) {					
+				if (data.success){ 
+					$.smkAlert({
+						text: data.message,
+						type: 'success',
+						position:'top-center'
+					});
+					location.reload();
+				} else {
+					alert(data.message);
+					$.smkAlert({
+						text: data.message,
+						type: 'danger'//,
+					//                        position:'top-center'
+					});
+				}
+			}).error(function (response) {
+				alert(response.responseText);
+			}); 
+		}});
+		e.preventDefault();
+	});
+	//end btn_row_setActive
+	
+	$('a[name=btn_row_delete]').click(function(){
+		var params = {
+			action: 'delete',
+			id: $(this).attr('data-id')
+		};
+		$.smkConfirm({text:'Are you sure to Delete ?',accept:'Yes', cancel:'Cancel'}, function (e){if(e){
+			$.post({
+				url: '<?=$rootPage;?>_ajax.php',
+				data: params,
+				dataType: 'json'
+			}).done(function (data) {					
+				if (data.success){ 
+					$.smkAlert({
+						text: data.message,
+						type: 'success',
+						position:'top-center'
+					});
+					location.reload();
+				} else {
+					alert(data.message);
+					$.smkAlert({
+						text: data.message,
+						type: 'danger'//,
+					//                        position:'top-center'
+					});
+				}
+			}).error(function (response) {
+				alert(response.responseText);
+			}); 
+		}});
+		e.preventDefault();
+	});
 });
   
   

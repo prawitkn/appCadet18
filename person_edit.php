@@ -150,9 +150,9 @@ $row = mysqli_fetch_assoc($result);
 								$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `cadet18_user_group` WHERE statusCode='A' ";							
 								$stmt = $pdo->prepare($sql);		
 								$stmt->execute();
-								while($row = $stmt->fetch()){
-									echo '<option value="'.$row['code'].'" 
-										 >'.$row['code'].' : ['.$row['name'].']</option>';
+								while($opt = $stmt->fetch()){
+									echo '<option value="'.$opt['code'].'" 
+										 >'.$opt['code'].' : ['.$opt['name'].']</option>';
 								}
 								?>
 							</select>
@@ -165,7 +165,7 @@ $row = mysqli_fetch_assoc($result);
 						<div class="form-group">
 							<input type="hidden" name="curPhoto" id="curPhoto" value="<?=$row['photo'];?>" />
 							<input type="file" name="inputFile" accept="image/*" multiple  onchange="showMyImage(this)" /> <br/>
-							<img id="thumbnil" style="width:50%; margin-top:10px;"  src="dist/img/person/<?php echo (empty($row['photo'])? 'default.jpg' : $row['photo']); ?>" alt="image"/>
+							<img id="thumbnil" style="width:50%; margin-top:10px;"  src="dist/img/person/<?php echo ($row['photo']==""? 'default.jpg' : $row['photo']); ?>" alt="image"/>
 						</div>
                         <button id="btn1" type="submit" class="btn btn-default">Submit</button>
 					</div>
@@ -228,7 +228,7 @@ $(document).ready(function() {
 	$("#spin").append(spinner.el);
 	$("#spin").hide();
 //           
-	$('#form1').on("submit", function(e) {
+	$('#form1').on("submit", function(e) { 
 		if ($('#form1').smkValidate()) {
 			$.ajax({
 			url: '<?=$rootPage;?>_ajax.php',
