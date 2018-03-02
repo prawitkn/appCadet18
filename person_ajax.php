@@ -66,11 +66,13 @@ function to_mysql_date($thai_date){
 				$subService = $_POST['subService'];
 				$position = $_POST['position'];
 				$workPlace = $_POST['workPlace'];
+				$workPlace2 = $_POST['workPlace2'];
 				$dateOfBirth = $_POST['dateOfBirth'];
 				$mobileNo = $_POST['mobileNo'];
 				$tel = $_POST['tel'];
 				$email = $_POST['email'];
 				$address = $_POST['address'];
+				$address2 = $_POST['address2'];
 				$groupCode = $_POST['groupCode'];
 				$group2code = $_POST['group2code'];
 				$group2Name = $_POST['group2Name'];
@@ -91,16 +93,16 @@ function to_mysql_date($thai_date){
 				 // Upload Picture
 				if (is_uploaded_file($_FILES['inputFile']['tmp_name'])){
 					$photo = 'person_'.uniqid().".".pathinfo(basename($_FILES['inputFile']['name']), PATHINFO_EXTENSION);
-					$path_upload = "dist/img/person/".$photo;
+					$path_upload = "images/person/".$photo;
 					move_uploaded_file($_FILES['inputFile']['tmp_name'], $path_upload);        
 				}
 
 				$sql = "INSERT INTO `cadet18_person` (`title`, `name`, `surname`, `fullname`, `photo`, `nickname`
-				, `origin`, `genNo`, `subService`, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`
+				, `origin`, `genNo`, `subService`, `position`, `workPlace`, `workPlace2`, `dateOfBirth`, `mobileNo`, `tel`, `email`
 				, `address`, `groupCode`, `group2code`, `group2Name`, `statusCode`, `retireYear`)
 				 VALUES ('$title', '$name', '$surname', '$fullname', '$photo', '$nickname'
-				 , '$origin', '$genNo', '$subService', '$position', '$workPlace', '$dateOfBirth', '$mobileNo', '$tel', '$email'
-				 , '$address', '$groupCode', '$group2code', '$group2Name', 'A', '$retireYear')";
+				 , '$origin', '$genNo', '$subService', '$position', '$workPlace', '$workPlace2', '$dateOfBirth', '$mobileNo', '$tel', '$email'
+				 , '$address', '$address2', '$groupCode', '$group2code', '$group2Name', 'A', '$retireYear')";
 
 				$result = mysqli_query($link, $sql);
 				if ($result) {
@@ -125,11 +127,13 @@ function to_mysql_date($thai_date){
 				$subService = $_POST['subService'];
 				$position = $_POST['position'];
 				$workPlace = $_POST['workPlace'];
+				$workPlace2 = $_POST['workPlace2'];
 				$dateOfBirth = $_POST['dateOfBirth'];
 				$mobileNo = $_POST['mobileNo'];
 				$tel = $_POST['tel'];
 				$email = $_POST['email'];
 				$address = $_POST['address'];
+				$address2 = $_POST['address2'];
 				$groupCode = $_POST['groupCode'];
 				$group2code = $_POST['group2code'];
 				$group2Name = $_POST['group2Name'];
@@ -153,12 +157,15 @@ function to_mysql_date($thai_date){
 				//inputFile
 				if (is_uploaded_file($_FILES['inputFile']['tmp_name'])){
 					// If the old picture already exists, delete it
-					if (file_exists('dist/img/person/'.$curPhoto)) unlink('dist/img/person/'.$curPhoto);
+					if (file_exists('images/person/'.$curPhoto)) unlink('images/person/'.$curPhoto);
 				
 					$photo = 'person_'.uniqid().".".pathinfo(basename($_FILES['inputFile']['name']), PATHINFO_EXTENSION);
-					$path_upload = "dist/img/person/".$photo;
+					$path_upload = "images/person/".$photo;
 					move_uploaded_file($_FILES['inputFile']['tmp_name'], $path_upload);        
+				}else{
+					$photo=$curPhoto;
 				}
+
 				//Sql
 				$dateOfBirth=to_mysql_date($dateOfBirth);
 				$sql = "UPDATE `cadet18_person` SET `title`=:title 
@@ -171,11 +178,13 @@ function to_mysql_date($thai_date){
 				, `subService`=:subService
 				, `position`=:position 
 				, `workPlace`=:workPlace 
+				, `workPlace2`=:workPlace2 
 				, `dateOfBirth`=:dateOfBirth 
 				, `mobileNo`=:mobileNo 
 				, `tel`=:tel 
 				, `email`=:email 
 				, `address`=:address 
+				, `address2`=:address2 
 				, `groupCode`=:groupCode 
 				, `group2code`=:group2code 
 				, `group2Name`=:group2Name 
@@ -199,11 +208,13 @@ function to_mysql_date($thai_date){
 				$stmt->bindParam(':subService', $subService);
 				$stmt->bindParam(':position', $position);
 				$stmt->bindParam(':workPlace', $workPlace);
+				$stmt->bindParam(':workPlace2', $workPlace2);
 				$stmt->bindParam(':dateOfBirth', $dateOfBirth);
 				$stmt->bindParam(':mobileNo', $mobileNo);
 				$stmt->bindParam(':tel', $tel);
 				$stmt->bindParam(':email', $email);
 				$stmt->bindParam(':address', $address);
+				$stmt->bindParam(':address2', $address2);
 				$stmt->bindParam(':groupCode', $groupCode);
 				$stmt->bindParam(':group2code', $group2code);
 				$stmt->bindParam(':group2Name', $group2Name);

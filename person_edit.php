@@ -102,6 +102,7 @@ $row = mysqli_fetch_assoc($result);
 						<div class="form-group">
                             <label for="workPlace" style="color: blue;">workPlace</label>
                             <input type="text" id="workPlace" name="workPlace" class="form-control" value="<?=$row['workPlace'];?>" />
+							<input type="text" id="workPlace2" name="workPlace2" class="form-control" value="<?=$row['workPlace2'];?>" />
                         </div>
 						<div class="form-group">
                             <label for="dateOfBirth" style="color: blue;">dateOfBirth</label>
@@ -122,6 +123,7 @@ $row = mysqli_fetch_assoc($result);
 						<div class="form-group">
                             <label for="address" style="color: blue;">address</label>
                             <input type="text" id="address" name="address" class="form-control" value="<?=$row['address'];?>" />
+							<input type="text" id="address2" name="address2" class="form-control" value="<?=$row['address2'];?>" />
                         </div>
 						<div class="form-group">
                             <label for="groupCode" style="color: blue;">groupCode</label>
@@ -165,7 +167,7 @@ $row = mysqli_fetch_assoc($result);
 						<div class="form-group">
 							<input type="hidden" name="curPhoto" id="curPhoto" value="<?=$row['photo'];?>" />
 							<input type="file" name="inputFile" accept="image/*" multiple  onchange="showMyImage(this)" /> <br/>
-							<img id="thumbnil" style="width:50%; margin-top:10px;"  src="dist/img/person/<?php echo ($row['photo']==""? 'default.jpg' : $row['photo']); ?>" alt="image"/>
+							<img id="thumbnil" style="width:50%; margin-top:10px;"  src="images/person/<?php echo ($row['photo']==""? 'default.jpg' : $row['photo']); ?>" alt="image"/>
 						</div>
                         <button id="btn1" type="submit" class="btn btn-default">Submit</button>
 					</div>

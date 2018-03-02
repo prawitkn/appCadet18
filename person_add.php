@@ -96,6 +96,7 @@ switch($s_userGroupCode){
 						<div class="form-group">
                             <label for="workPlace" style="color: blue;">workPlace</label>
                             <input type="text" id="workPlace" name="workPlace" class="form-control" />
+							<input type="text" id="workPlace2" name="workPlace2" class="form-control" />
                         </div>
 						<div class="form-group">
                             <label for="dateOfBirth" style="color: blue;">dateOfBirth</label>
@@ -116,6 +117,7 @@ switch($s_userGroupCode){
 						<div class="form-group">
                             <label for="address" style="color: blue;">address</label>
                             <input type="text" id="address" name="address" class="form-control" />
+							<input type="text" id="address2" name="address2" class="form-control" />
                         </div>
 						<div class="form-group">
                             <label for="groupCode" style="color: blue;">groupCode</label>

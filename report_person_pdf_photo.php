@@ -162,10 +162,13 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $pdf->SetFont('THSarabun', '', 14);
 
 
-$sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`,`position`, `workPlace`
-, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
+$sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`,`position`, `workPlace`, `workPlace2`
+, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
 FROM cadet18_person a
 WHERE 1 ";
+if(isset($_GET['groupCode'])){
+	$sql.="and a.groupCode = :groupCode ";
+}
 if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 	$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 }
@@ -174,6 +177,9 @@ ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS UNSIGNED), a.name
 "; 
 
 $stmt = $pdo->prepare($sql);
+if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
+	$stmt->bindParam(':groupCode', $_GET['groupCode']);
+}
 if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 	$search_word='%'.$_GET['search_word'].'%';
 	$stmt->bindParam(':search_word', $search_word);
@@ -233,21 +239,21 @@ while ($result = $stmt->fetch()) {
 		$iperpage = 0;
 	}
 	//$html .= '<tr>';
-	if (file_exists('images/'.$result['photo'])) {
+	if (file_exists('images/person/'.$result['photo'])) {
 		if(trim($result['photo'])<>""){
 			//$html .= '<td width="25%" style="border-bottom: 1px solid black;"><div align="center"><img src="images/'.$result['photo'].'" height="160"></div></td>';
-			$img='images/'.$result['photo'];
+			$img='images/person/'.$result['photo'];
 			//$pdf->Image($img);
 			//image width=150px;
 			//$pdf->Image('@' . $img,xFromTop, yFromTop,'JPG');
 			switch($iperpage){
-				case 0 : $pdf->Image($img,10,35,50,50,'JPG');
+				case 0 : $pdf->Image($img,15,35,25,'JPG');
 					break;
-				case 1 : $pdf->Image($img,10,95,50,50,'JPG');
+				case 1 : $pdf->Image($img,15,75,25,'JPG');
 					break;
-				case 2 : $pdf->Image($img,10,155,50,50,'JPG');
+				case 2 : $pdf->Image($img,15,115,25,'JPG');
 					break;
-				case 3 : $pdf->Image($img,215,200,50,50,'JPG');
+				case 3 : $pdf->Image($img,15,155,25,'JPG');
 					break;
 				default :
 			}
@@ -261,18 +267,18 @@ while ($result = $stmt->fetch()) {
 			//image width=150px;
 			//$pdf->Image('@' . $img,xFromTop, yFromTop,'JPG');
 			switch($iperpage){
-				case 0 : $pdf->Image($img,10,35,50,50,'JPG');
+				case 0 : $pdf->Image($img,15,35,25,'JPG');
 					break;
-				case 1 : $pdf->Image($img,10,95,50,50,'JPG');
+				case 1 : $pdf->Image($img,15,80,25,'JPG');
 					break;
-				case 2 : $pdf->Image($img,10,155,50,50,'JPG');
+				case 2 : $pdf->Image($img,15,115,25,'JPG');
 					break;
-				case 3 : $pdf->Image($img,215,200,50,50,'JPG');
+				case 3 : $pdf->Image($img,15,155,25,'JPG');
 					break;
 				default :
 			}
 	}
-	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
 	$pdf->Cell(25, 0, 'ยศ ชื่อ นามสกุล : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Cell(50, 0, $result['fullname'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	//$pdf->Cell(10, 0, ' : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
@@ -288,14 +294,19 @@ while ($result = $stmt->fetch()) {
 	$pdf->Cell(10, 0, $result['subService'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Ln(6);*/
 	
-	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
 	$pdf->Cell(25, 0, 'ตำแหน่ง : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Cell(200, 0, $result['position'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Ln(6);
 	
-	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
 	$pdf->Cell(25, 0, 'สถานที่ทำงาน : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Cell(200, 0, $result['workPlace'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Ln(6);
+	
+	$pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(200, 0, ($result['workPlace2']<>""?$result['workPlace2']:"-"), 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Ln(6);
 	
 	/*$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
@@ -308,15 +319,20 @@ while ($result = $stmt->fetch()) {
 	$pdf->Cell(25, 0, to_thai_short_date($result['dateOfBirth']), 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Ln(6);*/	
 	
-	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
 	$pdf->Cell(25, 0, 'ที่อยู่ : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Cell(100, 0, $result['address'], 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Ln(6);
 	
-	$pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
+	$pdf->Cell(25, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Cell(100, 0, ($result['address2']<>""?$result['address2']:"-"), 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+	$pdf->Ln(6);
+	
+	$pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0, false, 'T', 'B');	
 	$pdf->Cell(25, 0, 'โทร : ', 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 	$pdf->Cell(100, 0, $result['mobileNo'].' '.($result['tel']<>""?', '.$result['tel']:''), 0, 0, 'L', 0, '', 0, false, 'T', 'B');
-	$pdf->Ln(15);
+	$pdf->Ln(6);
 	
 	/*$html .= '
 	<td width="75%" style="border-bottom: 1px solid black;"><div align="left">

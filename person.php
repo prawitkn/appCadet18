@@ -104,8 +104,8 @@ switch($s_userGroupCode){
            <?php
 			$sql = "
 			SELECT `id`, `mid`, `title`, `name`, `surname`, `fullname`, `photo`, `nickname`, `origin`, `genNo`
-			, `subService`, `randCode`, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
-			, `person_type`, `groupCode`, `group2code`, `group2Name`, `statusCode`, `retireYear`
+			, `subService`, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
+			, `groupCode`, `group2code`, `group2Name`, `statusCode`, `retireYear`
 			FROM `cadet18_person`  
 			WHERE 1=1 ";
 			if(isset($_GET['search_word']) and isset($_GET['search_word'])){
@@ -143,7 +143,7 @@ switch($s_userGroupCode){
                          <?= $c_row; ?>
                     </td>	
                     <td>
-                         <img class="img-circle" src="./dist/img/person/<?php echo (empty($row['photo'])? 'default-50x50.gif' : $row['photo']) ?> " width="32px" height="32px" >
+                         <img class="img-circle" src="images/person/<?php echo (empty($row['photo'])? 'default-50x50.gif' : $row['photo']) ?> " width="32px" height="32px" >
                     </td>	
                     <td>
                          <?= $row['fullname']; ?>
@@ -155,7 +155,6 @@ switch($s_userGroupCode){
                          <?php $row['group2Name']; ?>
                     </td>
                     <td>
-                         <?=$statusName; ?>
 						 <?php if($row['statusCode']=='A'){ ?>
 							 <a class="btn btn-success" name="btn_row_setActive" data-statusCode="I" data-id="<?= $row['id']; ?>" >Active</a>
 						 <?php }else{ ?>

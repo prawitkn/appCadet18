@@ -42,16 +42,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Here is a label for example -->
           <?php
 				$search_word="";
-				$sqlSearch = "";
+				$queryString="id=";
+				if(isset($_GET['groupCode'])){
+					$queryString.="&groupCode=".$_GET['groupCode'];
+				}
+				if(isset($_GET['search_word'])){
+					$queryString.="&search_word=".$_GET['search_word'];
+				}
 				
                 $sql = "SELECT a.id 
 				FROM cadet18_person a
 				WHERE 1 ";
+				if(isset($_GET['groupCode'])){
+					$sql.="and a.groupCode = :groupCode ";
+				}
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 				}
 				
 				$stmt = $pdo->prepare($sql);
+				if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
+					$stmt->bindParam(':groupCode', $_GET['groupCode']);
+				}
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$search_word='%'.$_GET['search_word'].'%';
 					$stmt->bindParam(':search_word', $search_word);
@@ -74,10 +86,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div><!-- /.box-tools -->
         </div><!-- /.box-header -->
         <div class="box-body">
-			<!--<div class="row">
+			<div class="row">
 			<div class="col-md-6">					
                     <form id="form1" action="<?=$rootPage;?>.php" method="get" class="form" novalidate>
-						<div class="form-group">
+						<!--<div class="form-group">
                             <label for="search_word">Shipping marks search key word.</label>
 							<div class="input-group">
 								<input id="search_word" type="text" class="form-control" name="search_word" data-smk-msg="Require userFullname."required>
@@ -85,25 +97,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<span class="glyphicon glyphicon-search"></span>
 								</span>
 							</div>
-                        </div>						
+                        </div>-->
+						<div class="form-group">
+                            <label for="search_word">กลุ่ม</label>
+							<div class="input-group">
+								<select id="groupCode" name="groupCode" class="form-control"  >
+									<option value=""> -- Select -- </option>
+									<?php
+									$sql = "SELECT `id`, `code`, `name`, `statusCode`  FROM `cadet18_person_group` WHERE statusCode='A' ";							
+									$stmt = $pdo->prepare($sql);		
+									$stmt->execute();
+									$selected="";
+									while($row = $stmt->fetch()){
+										$selected=(isset($_GET['groupCode'])?($_GET['groupCode']==$row['id']?' selected ':''):'');
+										echo '<option value="'.$row['code'].'" 
+											'.$selected.' 
+											 >'.$row['id'].' : '.$row['name'].'</option>';
+									}
+									?>
+								</select>
+							</div>
+                        </div>
 						<input type="submit" class="btn btn-default" value="ค้นหา">
                     </form>
                 </div>    
-			</div>-->
+			</div>
            <?php
                 $sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`
 				, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
 				, `groupCode`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
 				FROM cadet18_person a
 				WHERE 1 ";
+				if(isset($_GET['groupCode'])){
+					$sql.="and a.groupCode = :groupCode ";
+				}
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 				}
-				$sql .="				
-				ORDER BY a.id 
-				"; //echo $sql;
+				$sql .="ORDER BY a.id "; 
+				$sql .="LIMIT $start, $rows "; 
 				
 				$stmt = $pdo->prepare($sql);
+				if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
+					$stmt->bindParam(':groupCode', $_GET['groupCode']);
+				}
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$search_word='%'.$_GET['search_word'].'%';
 					$stmt->bindParam(':search_word', $search_word);
@@ -155,15 +192,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<nav>
 			<ul class="pagination">
 				<li <?php if($page==1) echo 'class="disabled"'; ?> >
-					<a href="<?=$rootPage;?>.php?search_word=<?= $search_word;?>&=page=<?= $page-1; ?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+					<a href="<?=$rootPage;?>.php?<?=$queryString;?>&=page=<?= $page-1; ?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 				</li>
 				<?php for($i=1; $i<=$total_page;$i++){ ?>
 				<li <?php if($page==$i) echo 'class="active"'; ?> >
-					<a href="<?=$rootPage;?>.php?search_word=<?= $search_word;?>&page=<?= $i?>" > <?= $i;?></a>			
+					<a href="<?=$rootPage;?>.php?<?=$queryString;?>&page=<?= $i?>" > <?= $i;?></a>			
 				</li>
 				<?php } ?>
 				<li <?php if($page==$total_page) echo 'class="disabled"'; ?> >
-					<a href="<?=$rootPage;?>.php?search_word=<?= $search_word;?>&page=<?=$page+1?>" aria-labels="Next"><span aria-hidden="true">&raquo;</span></a>
+					<a href="<?=$rootPage;?>.php?<?=$queryString;?>&page=<?=$page+1?>" aria-labels="Next"><span aria-hidden="true">&raquo;</span></a>
 				</li>
 			</ul>
 			</nav>
@@ -172,7 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="box-footer">
 				<div class="col-md-12">
 					  <a href="report_person_pdf.php" class="btn btn-default  pull-right"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูล</a> 
-						<a href="report_person_pdf_photo.php" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ</a>
+						<a href="report_person_pdf_photo.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ</a>
 				</div><!-- /.col-md-12 -->
 			  </div><!-- box-footer -->
 			
