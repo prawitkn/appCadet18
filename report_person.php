@@ -210,6 +210,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="col-md-12">
 					  <a href="report_person_pdf.php" class="btn btn-default  pull-right"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูล</a> 
 						<a href="report_person_pdf_photo.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ</a>
+						<a href="report_person_pdf_photo_a6.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ (A6)</a>
 				</div><!-- /.col-md-12 -->
 			  </div><!-- box-footer -->
 			

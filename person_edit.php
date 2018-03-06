@@ -246,15 +246,14 @@ $(document).ready(function() {
 						type: 'success',
 						position:'top-center'
 					});
+					history.back();
 				}else{
 					$.smkAlert({
 						text: data.message,
 						type: 'danger',
 						position:'top-center'
 					});
-				}
-				$('#form1')[0].reset();
-				$("#title").focus(); 
+				}				
 			})
 			.error(function (response) {
 				  alert(response.responseText);
