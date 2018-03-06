@@ -10,7 +10,7 @@ $userPassword = $_POST['userPassword'];
 
 // Encript Password
 //$salt = "asdadasgfd";
-$salt = "13ig130y@20#18";
+$salt = "13ig130y#cadet18";
 $hash_login_password = hash_hmac('sha256', $userPassword, $salt);
 
 $sql = "SELECT userId FROM ".$tb." WHERE (userName=:userName AND userPassword=:hash_login_password) LIMIT 1";

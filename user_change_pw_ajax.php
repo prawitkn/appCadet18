@@ -14,7 +14,7 @@
 		exit; 
 	}
 
-	$salt = "13ig130y@20#18";
+	$salt = "13ig130y#cadet18";
 	$hash_userPassword = hash_hmac('sha256', $confirmPassword, $salt);
 	$sql = "UPDATE ".$tb." SET userPassword=:hash_userPassword WHERE userId=:userId ";		
 	$stmt = $pdo->prepare($sql);
