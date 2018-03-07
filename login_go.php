@@ -14,6 +14,7 @@ $salt = "13ig130y#cadet18";
 $hash_login_password = hash_hmac('sha256', $userPassword, $salt);
 
 $sql = "SELECT userId FROM ".$tb." WHERE (userName=:userName AND userPassword=:hash_login_password) LIMIT 1";
+//$sql = "SELECT userId FROM ".$tb." WHERE userName=:userName LIMIT 1";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':userName', $userName);
 $stmt->bindParam(':hash_login_password', $hash_login_password);

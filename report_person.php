@@ -125,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <?php
                 $sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`
 				, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
-				, `groupCode`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
+				, `groupCode`,`groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
 				FROM cadet18_person a
 				WHERE 1 ";
 				if(isset($_GET['groupCode'])){
@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 				}
-				$sql .="ORDER BY a.id "; 
+				$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.name  "; 
 				$sql .="LIMIT $start, $rows "; 
 				
 				$stmt = $pdo->prepare($sql);
@@ -150,7 +150,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
            ?>             
             <table class="table table-striped">
                 <tr>
-                    <th>ลำดับ</th>					
+                    <th>ลำดับ</th>
+					<th>ประเภท</th>					
+					<th>กลุ่ม</th>	
 					<th>ยศ ชื่อ นามสกุล</th>
 					<th>ตำแหน่ง</th>
                 </tr>
@@ -163,7 +165,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>					
 					<!--<td>
                          <img class="img-circle" src="<?=$img;?>" alt="Image" width="50" />
-                    </td>-->	
+                    </td>-->
+					<td>
+                         <?= $row['groupName']; ?>
+                    </td>	
+					<td>
+                         <?= $row['group2Name']; ?>
+                    </td>						
 					<td>
                          <?= $row['fullname']; ?>
                     </td>	

@@ -197,7 +197,7 @@ $ititle2 = "";
 $html="";
 //$html="<table border=\"1\">";
 
-$pdf->AddPage('P','A4');
+//$pdf->AddPage('P','A4');
 while ($result = $stmt->fetch()) {
 	if($i==0){
 		$iperpage = 0;	
@@ -251,11 +251,11 @@ while ($result = $stmt->fetch()) {
 		//$html .= '<td width="25%" style="border-bottom: 1px solid black;"><div align="center"><img src="images/no_pic.jpg" height="160"></div></td>';
 		
 	}
-	$html.="<tr>";
+	$html.="<tr style=\"font-weight: bold;\">";
 	$html.='<td rowspan="7"><img src="'.$img.'" width="122" /></td>';
-	$html.="<td><b>ยศ ชื่อ นามสกุล : </b></td>";
-	$html.="<td colspan=\"2\"><b>".$result['fullname']."</b></td>";
-	$html.="<td><b>: ".$result['nickname']."</b></td>";
+	$html.="<td>ยศ ชื่อ นามสกุล : </td>";
+	$html.="<td colspan=\"2\">".$result['fullname']."</td>";
+	$html.="<td>: ".trim($result['nickname'])."</td>";
 	$html.="</tr>";
 	
 	$html.="<tr>";
@@ -303,7 +303,7 @@ while ($result = $stmt->fetch()) {
 
 // output the HTML content
 $html .= '</table>';
-$html.="<h6 style=\"text-align: center;\">".$i." นาย</h6>";
+$html.="<h6 style=\"text-align: center;\">".($i-1)." นาย</h6>";
 $pdf->writeHTML($html, true, false, true, false, '');
 
 

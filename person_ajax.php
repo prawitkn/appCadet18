@@ -74,6 +74,7 @@ function to_mysql_date($thai_date){
 				$address = $_POST['address'];
 				$address2 = $_POST['address2'];
 				$groupCode = $_POST['groupCode'];
+				$groupName = $_POST['groupName'];
 				$group2code = $_POST['group2code'];
 				$group2Name = $_POST['group2Name'];
 				$retireYear = $_POST['retireYear'];
@@ -99,10 +100,10 @@ function to_mysql_date($thai_date){
 
 				$sql = "INSERT INTO `cadet18_person` (`title`, `name`, `surname`, `fullname`, `photo`, `nickname`
 				, `origin`, `genNo`, `subService`, `position`, `workPlace`, `workPlace2`, `dateOfBirth`, `mobileNo`, `tel`, `email`
-				, `address`, `groupCode`, `group2code`, `group2Name`, `statusCode`, `retireYear`)
+				, `address`, `address2`, `groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear`)
 				 VALUES ('$title', '$name', '$surname', '$fullname', '$photo', '$nickname'
 				 , '$origin', '$genNo', '$subService', '$position', '$workPlace', '$workPlace2', '$dateOfBirth', '$mobileNo', '$tel', '$email'
-				 , '$address', '$address2', '$groupCode', '$group2code', '$group2Name', 'A', '$retireYear')";
+				 , '$address', '$address2', '$groupCode', '$groupName', '$group2code', '$group2Name', 'A', '$retireYear')";
 
 				$result = mysqli_query($link, $sql);
 				if ($result) {

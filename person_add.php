@@ -124,6 +124,10 @@ switch($s_userGroupCode){
                             <input type="text" id="groupCode" name="groupCode" class="form-control" />
                         </div>
 						<div class="form-group">
+                            <label for="groupName" style="color: blue;">groupName</label>
+                            <input type="text" id="groupName" name="groupName" class="form-control" />
+                        </div>
+						<div class="form-group">
                             <label for="group2code" style="color: blue;">group2code</label>
                             <input type="text" id="group2code" name="group2code" class="form-control" />
                         </div>
