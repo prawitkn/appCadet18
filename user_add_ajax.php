@@ -23,7 +23,7 @@
     }   
     
  // Encript Password
-    $salt = "asdadasgfd";
+    $salt = "13ig130y#cadet18";
     $hash_userPassword = hash_hmac('sha256', $userPassword, $salt);
 
 	$new_picture_name="";

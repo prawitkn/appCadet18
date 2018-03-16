@@ -38,7 +38,7 @@
 	$hash_userPassword='';
 	if(isset($userPassword) AND $userPassword<>''){
 		 // Encript New Password
-		$salt = "asdadasgfd";
+		$salt = "13ig130y#cadet18";
 		$hash_userPassword = hash_hmac('sha256', $userPassword, $salt);
 	}else{
 		//Old Password

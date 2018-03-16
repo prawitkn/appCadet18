@@ -18,12 +18,16 @@
       <ul class="sidebar-menu">
 		<li class="header">ข้อมูล</li>
 		<?php switch($s_userGroupCode){ case 'admin' : ?>			
-			<li><a href="person.php"><i class="fa fa-bars"></i> <span> ผู้คน </span></a></li>			
+			<li><a href="person.php"><i class="fa fa-bars"></i> <span> บันทึก/แก้ไขข้อมูล </span></a></li>			
 		<?php break; default : } ?>
 		
 		<li class="header">รายงาน</li>
 		<?php switch($s_userGroupCode){ case 'admin' : ?>			
-			<li><a href="report_person.php"><i class="fa fa-bars"></i> <span> รายชื่อ นตท.18 </span></a></li>			
+			<li><a href="report_person.php"><i class="fa fa-bars"></i> <span> รายชื่อ ตท.18 </span></a></li>			
+			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=1"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 จปร.29 </span></a></li>		
+			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=2"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 นนร.75</span></a></li>		
+			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=3"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 นนอ.25</span></a></li>		
+			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=4"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 นรต.43 </span></a></li>		
 		<?php break; default : } ?>
 		
  		

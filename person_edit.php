@@ -82,15 +82,15 @@ $row = mysqli_fetch_assoc($result);
                             <label for="nickname" style="color: blue;">nickname</label>
                             <input type="text" id="nickname" name="nickname" class="form-control" value="<?=$row['nickname'];?>" />
                         </div>
-						<div class="form-group">
+						<div class="form-group" style="display: none;">
                             <label for="origin" style="color: blue;">origin</label>
                             <input type="text" id="origin" name="origin" class="form-control" value="<?=$row['origin'];?>" />
                         </div>
-						<div class="form-group">
+						<div class="form-group" style="display: none;">
                             <label for="genNo" style="color: blue;">genNo</label>
                             <input type="text" id="genNo" name="genNo" class="form-control" value="<?=$row['genNo'];?>" />
                         </div>
-						<div class="form-group">
+						<div class="form-group" style="display: none;">
                             <label for="subService" style="color: blue;">subService</label>
                             <input type="text" id="subService" name="subService" class="form-control" value="<?=$row['subService'];?>" />
                         </div>
@@ -104,9 +104,14 @@ $row = mysqli_fetch_assoc($result);
                             <input type="text" id="workPlace" name="workPlace" class="form-control" value="<?=$row['workPlace'];?>" />
 							<input type="text" id="workPlace2" name="workPlace2" class="form-control" value="<?=$row['workPlace2'];?>" />
                         </div>
-						<div class="form-group">
+						<div class="form-group" style="display: none;">
                             <label for="dateOfBirth" style="color: blue;">dateOfBirth</label>
                             <input type="text" id="dateOfBirth" name="dateOfBirth" class="form-control datepicker" />
+                        </div>
+						<div class="form-group">
+                            <label for="address" style="color: blue;">address</label>
+                            <input type="text" id="address" name="address" class="form-control" value="<?=$row['address'];?>" />
+							<input type="text" id="address2" name="address2" class="form-control" value="<?=$row['address2'];?>" />
                         </div>
 						<div class="form-group">
                             <label for="mobileNo" style="color: blue;">mobileNo</label>
@@ -115,16 +120,12 @@ $row = mysqli_fetch_assoc($result);
 						<div class="form-group">
                             <label for="tel" style="color: blue;">tel</label>
                             <input type="text" id="tel" name="tel" class="form-control" value="<?=$row['tel'];?>" />
-                        </div><div class="form-group">
+                        </div><div class="form-group" style="display: none;">
                             <label for="email" style="color: blue;">email</label>
                             <input type="text" id="email" name="email" class="form-control" value="<?=$row['email'];?>" />
                         </div>
 						<!--, `address`, `person_type`, `groupCode`, `group2code`, `group2Name`, `status`, `retireYear`-->
-						<div class="form-group">
-                            <label for="address" style="color: blue;">address</label>
-                            <input type="text" id="address" name="address" class="form-control" value="<?=$row['address'];?>" />
-							<input type="text" id="address2" name="address2" class="form-control" value="<?=$row['address2'];?>" />
-                        </div>
+						
 						<div class="form-group">
                             <label for="groupCode" style="color: blue;">groupCode</label>
                             <input type="text" id="groupCode" name="groupCode" class="form-control" value="<?=$row['groupCode'];?>" />
