@@ -123,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>    
 			</div>
            <?php
-                $sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`
+                $sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`
 				, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
 				, `groupCode`,`groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
 				FROM cadet18_person a
@@ -134,7 +134,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 				}
-				$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.name  "; 
+				if(isset($_GET['groupCode'])){
+					switch($_GET['groupCode']){
+						case 1 : 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo "; 
+							break;
+						case 2 : 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
+							break;
+						default : 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
+					}
+				}
 				$sql .="LIMIT $start, $rows "; 
 				
 				$stmt = $pdo->prepare($sql);
@@ -146,6 +157,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$stmt->bindParam(':search_word', $search_word);
 					$stmt->bindParam(':search_word2', $search_word);
 				}
+				
 				$stmt->execute();				
            ?>             
             <table class="table table-striped">
@@ -215,8 +227,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			
 			<div class="box-footer">
-				<div class="col-md-12">
-					  <a href="report_person_pdf.php" class="btn btn-default  pull-right"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูล</a> 
+				<div class="col-md-12">					  
+					  <a href="report_person_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (.xlsx)</a>
 						<a href="report_person_pdf_photo.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ</a>
 						<a href="report_person_pdf_photo_a6.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ (A6)</a>
 				</div><!-- /.col-md-12 -->

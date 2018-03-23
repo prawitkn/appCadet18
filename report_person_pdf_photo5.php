@@ -159,9 +159,8 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 
 
-$sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`,  `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`,`position`, `workPlace`, `workPlace2`
+$sql = "SELECT  `id`, `mid`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`,`position`, `workPlace`, `workPlace2`
 , `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
-, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 FROM cadet18_person a
 WHERE 1 ";
 if(isset($_GET['groupCode'])){
@@ -170,32 +169,9 @@ if(isset($_GET['groupCode'])){
 if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 	$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 }
-if(isset($_GET['groupCode'])){
-	switch($_GET['groupCode']){
-		case 1 : 
-			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo "; 
-			break;
-		case 2 : 
-			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
-			break;
-		default : 
-			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
-	}
-}
-
-
-		
-/*if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
-	if($_GET['groupCode']==3){
-		$sql .="				
-		ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id 
-		"; 
-	}else{
-		$sql .="				
-		ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.name 
-		"; 
-	}
-}*/
+$sql .="				
+ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id 
+"; 
 
 $stmt = $pdo->prepare($sql);
 if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
