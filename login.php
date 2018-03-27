@@ -78,11 +78,8 @@
         $('#form1').on("submit",function(e) {
      
            if($('#form1').smkValidate()) {
-    alert("Ok validate");      
                 $.post("login_go.php", $("#form1").serialize() )
                         .done(function(data) {
-							alert(data);
-							alert(data.message);
                             if (data.status === "danger") {
             
                                 $.smkAlert({text: data.message, type: data.status});

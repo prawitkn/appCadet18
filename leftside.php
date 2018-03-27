@@ -19,6 +19,7 @@
 		<li class="header">ข้อมูล</li>
 		<?php switch($s_userGroupCode){ case 'admin' : ?>			
 			<li><a href="person.php"><i class="fa fa-bars"></i> <span> บันทึก/แก้ไขข้อมูล </span></a></li>			
+			<li><a href="scan.php"><i class="fa fa-bars"></i> <span> Scan </span></a></li>	
 		<?php break; default : } ?>
 		
 		<li class="header">รายงาน</li>
