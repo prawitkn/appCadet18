@@ -18,8 +18,14 @@
       <ul class="sidebar-menu">
 		<li class="header">ข้อมูล</li>
 		<?php switch($s_userGroupCode){ case 'admin' : ?>			
-			<li><a href="person.php"><i class="fa fa-bars"></i> <span> บันทึก/แก้ไขข้อมูล </span></a></li>			
-			<li><a href="scan.php"><i class="fa fa-bars"></i> <span> Scan </span></a></li>	
+			<li><a href="person.php"><i class="fa fa-bars"></i> <span> บันทึก/แก้ไขข้อมูล </span></a></li>		
+		<?php break; default : } ?>
+		
+		<li class="header">เมนู</li>
+		<?php switch($s_userGroupCode){ case 'checkIn' : ?>			
+			<li><a href="scan.php"><i class="fa fa-barcode"></i> <span> Check-in </span></a></li>	
+			<li><a href="scan_view.php"><i class="fa fa-tv"></i> <span> สรุปยอด </span></a></li>
+			<li><a href="scan_list.php"><i class="fa fa-bars"></i> <span> รายชื่อ Check-in </span></a></li>
 		<?php break; default : } ?>
 		
 		<li class="header">รายงาน</li>
@@ -28,12 +34,14 @@
 			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=1"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 จปร.29 </span></a></li>		
 			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=2"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 นนร.75</span></a></li>		
 			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=3"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 นนอ.25</span></a></li>		
-			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=4"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 นรต.43 </span></a></li>		
+			<li><a target="_blank" href="report_person_pdf_photo.php?id=&groupCode=4"><i class="glyphicon glyphicon-save-file"></i> <span> รายชื่อ ตท.18 นรต.43 </span></a></li>					
+		<?php break; default : } ?>		
+		<?php switch($s_userGroupCode){ case 'checkIn' : ?>			
+			<li><a href="report_person_check_in.php"><i class="fa fa-bars"></i> <span> บัญชีการเข้าร่วมงาน </span></a></li>	
 		<?php break; default : } ?>
-		
  		
 		<li class="header">Setting</li>	
-		<li><a href="user_change_pw.php"><i class="fa fa-bars"></i> <span> Change Password </span></a></li>	    
+		<li><a href="user_change_pw.php"><i class="fa fa-lock"></i> <span> Change Password </span></a></li>	    
       </ul>
       <!-- /.sidebar-menu -->
     </section>

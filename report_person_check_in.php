@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
   <!-- Main Header -->
   <?php include 'header.php'; 	include 'inc_helper.php';  
-  $rootPage="report_person";
+  $rootPage="report_person_check_in";
   ?>  
   
   <!-- Left side column. contains the logo and sidebar -->
@@ -59,7 +59,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 				}
-				
 				$stmt = $pdo->prepare($sql);
 				if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
 					$stmt->bindParam(':groupCode', $_GET['groupCode']);
@@ -118,14 +117,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</select>
 							</div>
                         </div>
+						<div class="form-group">
+                            <label for="orderBy">เรียงโดย</label>
+							<div class="input-group">
+								<select id="orderBy" name="orderBy" class="form-control"  >									
+									
+									<option value="1" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==1?' selected ':''):''); ?> >order No.</option>
+									<option value="2" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==2?' selected ':''):''); ?> >group : a->z</option>
+									<option value="3" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==3?' selected ':''):''); ?> >a->z</option>
+									<option value="4" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==4?' selected ':''):''); ?> >id/importing data</option>
+								</select>
+							</div>
+                        </div>
 						<input type="submit" class="btn btn-default" value="ค้นหา">
                     </form>
                 </div>    
 			</div>
            <?php
-                $sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`
-				, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
-				, `groupCode`,`groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
+                $sql = "SELECT `id`, `orderNo`, `title`, `name`, `surname`, `fullname`, `photo`, `nickname`, `position`
+				, `groupCode`, `groupName`, `group2code`, `group2Name`
+				, `isInvite`, `isCount`, `statusCode`				
 				, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 				FROM cadet18_person a
 				WHERE 1 ";
@@ -135,19 +146,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 				}
-				if(isset($_GET['groupCode'])){
-					switch($_GET['groupCode']){
+				if(isset($_GET['orderBy'])){
+					switch($_GET['orderBy']){
 						case 1 : 
-							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo "; 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), orderNo "; 
 							break;
 						case 2 : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
 							break;
+						case 3 : 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), nameForOrder "; 
+							break;
 						default : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
 					}
-				}
-				$sql .="LIMIT $start, $rows "; 
+				}				
 				
 				$stmt = $pdo->prepare($sql);
 				if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
@@ -229,10 +242,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			<div class="box-footer">
 				<div class="col-md-12">					  
-					  <a href="report_person_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (.xlsx)</a>
-						<a href="report_person_pdf_photo.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ</a>
-						<a href="report_person_pdf_photo_a6.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ (A6)</a>
-				</div><!-- /.col-md-12 -->
+					  <a href="report_person_check_in_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (.xlsx)</a>
+				</div>
 			  </div><!-- box-footer -->
 			
 			

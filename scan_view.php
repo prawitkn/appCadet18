@@ -33,13 +33,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1><i class="glyphicon glyphicon-barcode"></i>
-       Check in
-        <small>Check in management</small>
+      <h1><i class="glyphicon glyphicon-search"></i>
+       View
+        <small>View management</small>
       </h1>
 	  <ol class="breadcrumb">
-        <li><a href="<?=$rootPage;?>.php"><i class="glyphicon glyphicon-list"></i>Check in List</a></li>
-		<li><a href="#"><i class="glyphicon glyphicon-edit"></i>Check in</a></li>
+        <li><a href="<?=$rootPage;?>.php"><i class="glyphicon glyphicon-list"></i>View List</a></li>
+		<li><a href="#"><i class="glyphicon glyphicon-edit"></i>View</a></li>
       </ol>
     </section>
 
@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Your Page Content Here -->
 	<div class="box box-primary">
         <div class="box-header with-border">
-        <h3 class="box-title">Check in</h3>
+        <h3 class="box-title">View</h3>
         <div class="box-tools pull-right">
           <!-- Buttons, labels, and many other things can be placed here! -->
           <!-- Here is a label for example -->
@@ -57,37 +57,82 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div><!-- /.box-tools -->
         </div><!-- /.box-header -->
         <div class="box-body">            
-            <div class="row">                
-					<div class="col-md-6">	
-						<input id="userId" type="hidden" name="userId" value="<?=$s_userId;?>" />
-                        <div class="form-group">
-                            <label for="barcode">Barcode</label>
-                            <input id="barcode" type="text" class="form-control" name="barcode" >							
-                        </div>
-						<div class="form-group">
-                            <label for="fullname">ยศ ชื่อ นามสกุล</label>
-							<h3 id="fullname"></h3>
-                        </div>
-						<div class="form-group">
-                            <label for="group">กลุ่ม</label>
-							<h3 id="group"></h3>
-                        </div>
-						<div class="form-group">
-                            <label for="position">ตำแหน่ง</label>
-							<h3 id="position"></h3>
-                        </div>						
-                        <button id="btn_submit" type="submit" class="btn btn-primary">Submit</button>
-					</div>
-					<div class="col-md-6">	
-						<div class="form-group">                            
-							<img id="img" src="" />
-                        </div>
-					</div>
-					<!--/.col-md-->
-                </div>
-                <!--/.row-->       
+            <div class="row" style="text-align: center;"> 
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/1.jpg" height="200px;" />
+					<?php
+					$sumInvite=0;
+					$sumCount=0;
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=1 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>จปร.29 </h3>
+					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+				</div>
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/2.jpg" height="200px;" />
+					<?php
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=2 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>นนร.75 </h3>
+					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+				</div>
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/3.jpg" height="200px;" />
+					<?php
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=3 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>นนอ.25 </h3>
+					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+				</div>
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/4.jpg" height="200px;" />
+					<?php
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=4 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>นรต.34 </h3>
+					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+				</div>				
             </div>
-			<!--.body-->    
+            <!--/.row-->     
+
+			<div class="row" style="text-align: center;"> 
+				<div class="col-md-12">
+					<h3>ยอดรวม</h3>
+					<h3>ตอบรับ <?=$sumInvite;?> นาย</h3>
+					<h3>มา <?=$sumCount;?> นาย</h3>
+				</div>		
+            </div>
+            <!--/.row-->       
+        </div>
+		<!--.body-->    
     </div>
 	<!-- /.box box-primary -->
 	
@@ -133,18 +178,17 @@ $(document).ready(function() {
 				dataType: 'json'
 			}).done(function (data) {					
 				if (data.success){ 
-					/*$.smkAlert({
+					$.smkAlert({
 						text: data.message,
 						type: 'success',
 						position:'top-center'
-					});*/					
+					});
 					$itm=$.parseJSON(data.itm);
 					$('#fullname').text($itm.fullname);
 					$('#group').text($itm.groupName);
 					$('#position').text($itm.position);
-					//$('#img').prop('src','images/person/'+$itm.photo);
-					//$('#barcode').select();
-					$('#btn_submit').focus();
+					$('#img').attr('src',$itm.photo);
+					$('#barcode').select();
 					//location.reload();
 				} else {
 					alert(data.message);
@@ -153,7 +197,6 @@ $(document).ready(function() {
 						type: 'danger'//,
 					//                        position:'top-center'
 					});
-					$('#barcode').select();
 				}
 			}).error(function (response) {
 				alert(response.responseText);
@@ -161,39 +204,7 @@ $(document).ready(function() {
 		}/* e.keycode=13 */	
 	});
 	
-	$('#btn_submit').on("click", function(e) {
-		var params = {
-			barcode: $('#barcode').val()
-		}; //alert(params.barcode);
-		$.post({
-			url: 'scan_save_ajax.php',
-			data: params,
-			dataType: 'json'
-		}).done(function (data) {					
-			if (data.success){ 
-				alert(data.message);
-				
-				/*$itm=$.parseJSON(data.itm);
-				$('#fullname').text($itm.fullname);
-				$('#group').text($itm.groupName);
-				$('#position').text($itm.position);
-				$('#img').attr('src',"images\\person\\"+itm.photo);*/
-				$('#barcode').select();
-				//$('#btn_submit').focus();
-				//location.reload();
-			} else {
-				alert(data.message);
-				$.smkAlert({
-					text: data.message,
-					type: 'danger'//,
-				//                        position:'top-center'
-				});
-				$('#barcode').select();
-			}
-		}).error(function (response) {
-			alert(response.responseText);
-		}); 
-	});
+	
 	
 	/*$('#form1').on("submit", function(e) {
 		if($('#newPassword').val() != $('#confirmPassword').val()){
