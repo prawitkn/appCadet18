@@ -80,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					</div>
 					<div class="col-md-6">	
 						<div class="form-group">                            
-							<img id="img" src="" />
+							<img id="img" src="" width="250px;" />
                         </div>
 					</div>
 					<!--/.col-md-->
@@ -142,7 +142,7 @@ $(document).ready(function() {
 					$('#fullname').text($itm.fullname);
 					$('#group').text($itm.groupName);
 					$('#position').text($itm.position);
-					//$('#img').prop('src','images/person/'+$itm.photo);
+					$('#img').prop('src','images/person/'+$itm.photo);
 					//$('#barcode').select();
 					$('#btn_submit').focus();
 					//location.reload();
@@ -171,13 +171,12 @@ $(document).ready(function() {
 			dataType: 'json'
 		}).done(function (data) {					
 			if (data.success){ 
-				alert(data.message);
-				
-				/*$itm=$.parseJSON(data.itm);
-				$('#fullname').text($itm.fullname);
-				$('#group').text($itm.groupName);
-				$('#position').text($itm.position);
-				$('#img').attr('src',"images\\person\\"+itm.photo);*/
+				//alert(data.message);
+				/*$.smkAlert({
+					text: data.message,
+					type: 'success'//,
+				//                        position:'top-center'
+				});*/
 				$('#barcode').select();
 				//$('#btn_submit').focus();
 				//location.reload();

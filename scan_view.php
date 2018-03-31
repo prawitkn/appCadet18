@@ -72,8 +72,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumCount+=$row['countTotal'];
 					?>
 					<h3>จปร.29 </h3>
-					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
 				</div>
 				<div class="col-md-3">
 					<img src="dist/img/typeLogo/2.jpg" height="200px;" />
@@ -87,8 +88,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumCount+=$row['countTotal'];
 					?>
 					<h3>นนร.75 </h3>
-					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
 				</div>
 				<div class="col-md-3">
 					<img src="dist/img/typeLogo/3.jpg" height="200px;" />
@@ -102,8 +104,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumCount+=$row['countTotal'];
 					?>
 					<h3>นนอ.25 </h3>
-					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
 				</div>
 				<div class="col-md-3">
 					<img src="dist/img/typeLogo/4.jpg" height="200px;" />
@@ -117,8 +120,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumCount+=$row['countTotal'];
 					?>
 					<h3>นรต.34 </h3>
-					<h3>ตอบรับ <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>มา <?=$row['countTotal'];?> นาย</h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
 				</div>				
             </div>
             <!--/.row-->     
@@ -126,8 +130,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="row" style="text-align: center;"> 
 				<div class="col-md-12">
 					<h3>ยอดรวม</h3>
-					<h3>ตอบรับ <?=$sumInvite;?> นาย</h3>
-					<h3>มา <?=$sumCount;?> นาย</h3>
+					<h3>ทั้งหมด <?=$sumInvite;?> นาย</h3>
+					<h3>ลงทะเบียน <?=$sumCount;?> นาย</h3>
 				</div>		
             </div>
             <!--/.row-->       
@@ -164,7 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script> 
 $(document).ready(function() {
 	$('#barcode').select();
-	
+	setTimeout(function(){ location.reload(); }, 10000);
 	$('#barcode').keyup(function(e){
 		if(e.keyCode == 13)
 		{	
@@ -178,11 +182,11 @@ $(document).ready(function() {
 				dataType: 'json'
 			}).done(function (data) {					
 				if (data.success){ 
-					$.smkAlert({
+					/*$.smkAlert({
 						text: data.message,
 						type: 'success',
 						position:'top-center'
-					});
+					});*/
 					$itm=$.parseJSON(data.itm);
 					$('#fullname').text($itm.fullname);
 					$('#group').text($itm.groupName);

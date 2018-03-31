@@ -53,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 $sql = "SELECT a.id 
 				FROM cadet18_person a
 				WHERE 1 ";
-				if(isset($_GET['groupCode'])){
+				if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
 					$sql.="and a.groupCode = :groupCode ";
 				}
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
@@ -140,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 				FROM cadet18_person a
 				WHERE 1 ";
-				if(isset($_GET['groupCode'])){
+				if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
 					$sql.="and a.groupCode = :groupCode ";
 				}
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
