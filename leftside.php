@@ -18,11 +18,6 @@
       <ul class="sidebar-menu">
 		<li class="header">ข้อมูล</li>
 		<?php switch($s_userGroupCode){ case 'admin' : ?>			
-<<<<<<< HEAD
-			<li><a href="person.php"><i class="fa fa-bars"></i> <span> บันทึก/แก้ไขข้อมูล </span></a></li>			
-			<li><a href="scan.php"><i class="fa fa-barcode"></i> <span> Check-in </span></a></li>	
-			<li><a href="scan_view.php"><i class="fa fa-stats"></i> <span> สรุปยอด </span></a></li>	
-=======
 			<li><a href="person.php"><i class="fa fa-bars"></i> <span> บันทึก/แก้ไขข้อมูล </span></a></li>		
 		<?php break; default : } ?>
 		
@@ -31,7 +26,6 @@
 			<li><a href="scan.php"><i class="fa fa-barcode"></i> <span> Check-in </span></a></li>	
 			<li><a href="scan_view.php"><i class="fa fa-tv"></i> <span> สรุปยอด </span></a></li>
 			<li><a href="scan_list.php"><i class="fa fa-bars"></i> <span> รายชื่อ Check-in </span></a></li>
->>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
 		<?php break; default : } ?>
 		
 		<li class="header">รายงาน</li>

@@ -80,11 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					</div>
 					<div class="col-md-6">	
 						<div class="form-group">                            
-<<<<<<< HEAD
-							<img id="img" src="" />
-=======
 							<img id="img" src="" width="250px;" />
->>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
                         </div>
 					</div>
 					<!--/.col-md-->
@@ -146,11 +142,7 @@ $(document).ready(function() {
 					$('#fullname').text($itm.fullname);
 					$('#group').text($itm.groupName);
 					$('#position').text($itm.position);
-<<<<<<< HEAD
-					//$('#img').prop('src','images/person/'+$itm.photo);
-=======
 					$('#img').prop('src','images/person/'+$itm.photo);
->>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
 					//$('#barcode').select();
 					$('#btn_submit').focus();
 					//location.reload();
@@ -179,22 +171,12 @@ $(document).ready(function() {
 			dataType: 'json'
 		}).done(function (data) {					
 			if (data.success){ 
-<<<<<<< HEAD
-				alert(data.message);
-				
-				/*$itm=$.parseJSON(data.itm);
-				$('#fullname').text($itm.fullname);
-				$('#group').text($itm.groupName);
-				$('#position').text($itm.position);
-				$('#img').attr('src',"images\\person\\"+itm.photo);*/
-=======
 				//alert(data.message);
 				/*$.smkAlert({
 					text: data.message,
 					type: 'success'//,
 				//                        position:'top-center'
 				});*/
->>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
 				$('#barcode').select();
 				//$('#btn_submit').focus();
 				//location.reload();
