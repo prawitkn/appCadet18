@@ -122,10 +122,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="input-group">
 								<select id="orderBy" name="orderBy" class="form-control"  >									
 									
+<<<<<<< HEAD
 									<option value="1" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==2?' selected ':''):''); ?> >order No.</option>
 									<option value="2" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==1?' selected ':''):''); ?> >group : a->z</option>
 									<option value="3" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==1?' selected ':''):''); ?> >a->z</option>
 									<option value="4" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==3?' selected ':''):''); ?> >id/importing data</option>
+=======
+									<option value="1" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==1?' selected ':''):''); ?> >order No.</option>
+									<option value="2" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==2?' selected ':''):''); ?> >group : a->z</option>
+									<option value="3" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==3?' selected ':''):''); ?> >a->z</option>
+									<option value="4" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==4?' selected ':''):''); ?> >id/importing data</option>
+>>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
 								</select>
 							</div>
                         </div>

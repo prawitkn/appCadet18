@@ -57,6 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div><!-- /.box-tools -->
         </div><!-- /.box-header -->
         <div class="box-body">            
+<<<<<<< HEAD
             <div class="row"> 
 				<div class="col-md-3">
 					<?php
@@ -99,6 +100,85 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<h3>นรต.34 <br/> <?=$row['countTotal'];?> นาย</h3>
 				</div>				
             </div>
+=======
+            <div class="row" style="text-align: center;"> 
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/1.jpg" height="200px;" />
+					<?php
+					$sumInvite=0;
+					$sumCount=0;
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=1 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>จปร.29 </h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+				</div>
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/2.jpg" height="200px;" />
+					<?php
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=2 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>นนร.75 </h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+				</div>
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/3.jpg" height="200px;" />
+					<?php
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=3 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>นนอ.25 </h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+				</div>
+				<div class="col-md-3">
+					<img src="dist/img/typeLogo/4.jpg" height="200px;" />
+					<?php
+					$sql = "SELECT SUM(isInvite) as inviteTotal, SUM(isCount) as countTotal 
+					FROM `".$tb."` WHERE groupCode=4 ";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();	
+					$row=$stmt->fetch();
+					$sumInvite+=$row['inviteTotal'];
+					$sumCount+=$row['countTotal'];
+					?>
+					<h3>นรต.34 </h3>
+					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
+					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
+					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+				</div>				
+            </div>
+            <!--/.row-->     
+
+			<div class="row" style="text-align: center;"> 
+				<div class="col-md-12">
+					<h3>ยอดรวม</h3>
+					<h3>ทั้งหมด <?=$sumInvite;?> นาย</h3>
+					<h3>ลงทะเบียน <?=$sumCount;?> นาย</h3>
+				</div>		
+            </div>
+>>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
             <!--/.row-->       
         </div>
 		<!--.body-->    
@@ -133,7 +213,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script> 
 $(document).ready(function() {
 	$('#barcode').select();
+<<<<<<< HEAD
 	
+=======
+	setTimeout(function(){ location.reload(); }, 10000);
+>>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
 	$('#barcode').keyup(function(e){
 		if(e.keyCode == 13)
 		{	
@@ -147,11 +231,19 @@ $(document).ready(function() {
 				dataType: 'json'
 			}).done(function (data) {					
 				if (data.success){ 
+<<<<<<< HEAD
 					$.smkAlert({
 						text: data.message,
 						type: 'success',
 						position:'top-center'
 					});
+=======
+					/*$.smkAlert({
+						text: data.message,
+						type: 'success',
+						position:'top-center'
+					});*/
+>>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
 					$itm=$.parseJSON(data.itm);
 					$('#fullname').text($itm.fullname);
 					$('#group').text($itm.groupName);

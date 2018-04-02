@@ -34,6 +34,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		$stmt->execute();	
 		$reCheckIn=0;
 	}//isset reCheckIn
+<<<<<<< HEAD
+=======
+	
+	$reInvite=0;
+	if(isset($_GET['reInvite'])){
+		$sql = "UPDATE `".$tb."` SET isInvite=0 WHERE group2Name LIKE '%เสียชีวิต%' ";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();	
+		
+		$sql = "UPDATE `".$tb."` SET isInvite=1 WHERE group2Name NOT LIKE '%เสียชีวิต%' ";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();	
+		$reInvite=0;
+	}//isset reInvite
+	
+>>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
    ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -71,10 +87,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <button id="btn_reset_check_in" type="submit" class="btn btn-primary">Reset Check-In</button>
 						</form>
 					</div>
+<<<<<<< HEAD
 					<div class="col-md-6">	
 						<div class="form-group">                            
 							<img id="img" src="" />
                         </div>
+=======
+					<div class="col-md-6">		
+						<form id="form1"  onsubmit="return confirm('Do you really want to submit the form?');" >
+						<input type="hidden" name="reInvite" value="<?=$reInvite;?>" />
+                        <button id="btn_reset_invite" type="submit" class="btn btn-primary">Reset Invite</button>
+						</form>
+>>>>>>> 164e66150d4f7af76824376e73d17b0eb2fbc402
 					</div>
 					<!--/.col-md-->
                 </div>
