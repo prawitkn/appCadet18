@@ -86,6 +86,9 @@ if($countTotal>0){
 				case 3 : 
 					$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), nameForOrder "; 
 					break;
+				case 5 : 
+					$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo2 ASC "; 
+					break;
 				default : 
 					$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
 			}
@@ -113,6 +116,7 @@ if($countTotal>0){
 		->setCellValue('E'.$iRow, $row['surname'])
 		->setCellValue('F'.$iRow, $row['isInvite'])
 		->setCellValue('G'.$iRow, $row['isCount'])
+		->setCellValue('H'.$iRow, $row['group2Name'])
 		;
 		
 		$iRow+=1;

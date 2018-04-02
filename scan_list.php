@@ -46,12 +46,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['groupCode'])){
 					$queryString.="&groupCode=".$_GET['groupCode'];
 				}
+				if(isset($_GET['orderBy'])){
+					$queryString.="&orderBy=".$_GET['orderBy'];
+				}
 				if(isset($_GET['search_word'])){
 					$queryString.="&search_word=".$_GET['search_word'];
 				}
 				
                 $sql = "SELECT a.id 
-				FROM cadet18_person a
+				FROM cadet18_person a 
 				WHERE 1 ";
 				if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
 					$sql.="and a.groupCode = :groupCode ";
@@ -126,6 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<option value="2" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==2?' selected ':''):''); ?> >group : a->z</option>
 									<option value="3" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==3?' selected ':''):''); ?> >a->z</option>
 									<option value="4" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==4?' selected ':''):''); ?> >id/importing data</option>
+									<option value="5" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==5?' selected ':''):''); ?> >group : order No</option>
 								</select>
 							</div>
                         </div>
@@ -156,6 +160,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							break;
 						case 3 : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), nameForOrder "; 
+							break;
+						case 5 : 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo2 "; 
 							break;
 						default : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		

@@ -5,7 +5,7 @@
     }
 	
 	//database connection string.
-	$is_local = true;
+	$is_local = false;
 	if($is_local){
 		include 'db/database_localhost.php';
 	}else{
