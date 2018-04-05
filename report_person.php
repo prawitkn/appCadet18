@@ -153,7 +153,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['orderBy'])){
 					switch($_GET['orderBy']){
 						case 1 : 
-							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), orderNo "; 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo "; 
 							break;
 						case 2 : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), nameForOrder "; 
 							break;
 						case 5 : 
-							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo2 "; 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)),  orderNo2 "; 
 							break;
 						default : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		

@@ -163,16 +163,14 @@ $sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`,  `fullname`, `p
 , `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
 , IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 FROM cadet18_person a
-WHERE 1 "; //11
+WHERE 1 ";
 if($_GET['groupCode']==2){
 	$sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`,  `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`,`position`, `workPlace`, `workPlace2`
-	, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`,  case `group2code` when group2Code<>11 then 0 else 1 end as group2Code
-	, case `group2code` when group2Code<>11 then 0 else 1 end group2Name, `statusCode`, `retireYear` 
+	, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, 0 as group2code, '' as group2Name, `statusCode`, `retireYear` 
 	, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 	FROM cadet18_person a
-	WHERE 1 "; //
+	WHERE 1 ";
 }
-
 if(isset($_GET['groupCode'])){
 	$sql.="and a.groupCode = :groupCode ";
 }
@@ -180,9 +178,9 @@ if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 	$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 }
 if(isset($_GET['orderBy'])){
-	switch($_GET['orderBy']){ 
+	switch($_GET['orderBy']){
 		case 1 : 
-			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.orderNo AS UNSIGNED) "; 
+			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo "; 
 			break;
 		case 2 : 
 			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
@@ -197,7 +195,6 @@ if(isset($_GET['orderBy'])){
 			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
 	}
 }	
-
 
 
 		
@@ -292,7 +289,7 @@ while ($result = $stmt->fetch()) {
 		
 	}
 	$html.="<tr style=\"font-weight: bold;\">";
-	$html.='<td rowspan="7"><img src="'.$img.'" width="122" /></td>';
+	$html.='<td rowspan="7"><img src="'."".'" width="122" /></td>';
 	$html.="<td>ยศ ชื่อ นามสกุล : </td>";
 	$html.="<td colspan=\"2\">".$result['fullname']."</td>";
 	$html.="<td>: ".trim($result['nickname'])."</td>";
