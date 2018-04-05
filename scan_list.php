@@ -177,8 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$search_word='%'.$_GET['search_word'].'%';
 					$stmt->bindParam(':search_word', $search_word);
 					$stmt->bindParam(':search_word2', $search_word);
-				}
-				
+				}				
 				$stmt->execute();				
            ?>             
             <table class="table table-striped">
@@ -243,7 +242,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			<div class="box-footer">
 				<div class="col-md-12">					  
-					  <a href="<?=$rootPage;?>_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (.xlsx)</a>
+					  <a href="<?=$rootPage;?>_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (เฉพาะทีตอบรับ) (.xlsx)</a>
+					  <a href="<?=$rootPage;?>_all_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (ทั้งหมด) (.xlsx)</a>
 				</div>
 			  </div><!-- box-footer -->
 			

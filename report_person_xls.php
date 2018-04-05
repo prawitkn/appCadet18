@@ -9,44 +9,37 @@ $objPHPExcel = new PHPExcel();
 
 // Set document properties
 $objPHPExcel->getProperties()->setCreator("Prawit Khamnet")
-        ->setTitle("WMS")
-        ->setSubject("Sales Order Report")
-        ->setDescription("Excel File")
-        ->setKeywords("Sales Order")
-        ->setCategory("Sales Order");
-		
-$dateFrom = (isset($_GET['dateFrom'])?$_GET['dateFrom']:'');
-$dateTo = (isset($_GET['dateTo'])?$_GET['dateTo']:'');
-
-$dateFromYmd=$dateToYmd="";
-if($dateFrom<>""){ $dateFromYmd = to_mysql_date($_GET['dateFrom']);	}
-if($dateFrom<>""){ $dateToYmd = to_mysql_date($_GET['dateTo']);	}
-
-
-							
+->setTitle("My Title")
+->setSubject("My Subject")
+->setDescription("My Description")
+->setKeywords("My Keywords")
+->setCategory("My Category");
+									
 $sql = "SELECT count(*) as countTotal
 FROM cadet18_person a
 WHERE 1 ";
 if(isset($_GET['groupCode'])){
-$sql.="and a.groupCode = :groupCode ";
+	$sql.="and a.groupCode = :groupCode ";
 }
 if(isset($_GET['search_word']) and isset($_GET['search_word'])){
-$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
-}
-if(isset($_GET['groupCode'])){
-switch($_GET['groupCode']){
-	case 2 : 
-		$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
-		break;
-	default : 
-		$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
-}
+	$sql.="and (a.id = :search_word) ";
 }
 
 $result = mysqli_query($link, $sql);
 $countTotal = mysqli_fetch_assoc($result);
 
-if($countTotal>0){
+$stmt = $pdo->prepare($sql);
+if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
+	$stmt->bindParam(':groupCode', $_GET['groupCode']);
+}
+if(isset($_GET['search_word']) and isset($_GET['search_word'])){
+	$search_word='%'.$_GET['search_word'].'%';
+	$stmt->bindParam(':search_word', $search_word);
+}
+$stmt->execute();
+$row=$stmt->fetch();
+
+if($row['countTotal'] > 0){
 	// Add Header
 	$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A1', 'รหัสประเภท')
@@ -66,39 +59,52 @@ if($countTotal>0){
 		->setCellValue('O1', 'โทร')		
 		;
 		
-$sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`,  `title`, `name`, `surname`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`,`position`, `workPlace`, `workPlace2`
-, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
-, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
-FROM cadet18_person a
-WHERE 1 ";
-if(isset($_GET['groupCode'])){
-$sql.="and a.groupCode = :groupCode ";
-}
-if(isset($_GET['search_word']) and isset($_GET['search_word'])){
-$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
-}
-if(isset($_GET['groupCode'])){
-switch($_GET['groupCode']){
-	case 1 : 
-			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo "; 
-			break;
-	case 2 : 
-		$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
-		break;
-	default : 
-		$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
-}
-}
-	$result = mysqli_query($link, $sql);     
-	
-	$iRow=2; while($row = mysqli_fetch_assoc($result) ){
+	$sql = "SELECT  `id`, `orderNo2`, `title`,`name`,`surname`, `photo`, `nickname`,`position`, `workPlace`, `workPlace2`
+	, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`
+	, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
+	FROM cadet18_person a
+	WHERE 1 ";
+	if(isset($_GET['groupCode'])){
+		$sql.="and a.groupCode = :groupCode ";
+	}
+	if(isset($_GET['search_word']) and isset($_GET['search_word'])){
+		$sql.="and (a.id = :search_word) ";
+	}
+	if(isset($_GET['orderBy'])){
+		switch($_GET['orderBy']){
+			case 1 : 
+				$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), orderNo2 "; 
+				break;
+			case 2 : 
+				$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
+				break;
+			case 3 : 
+				$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), nameForOrder "; 
+				break;
+			case 5 : 
+				$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo2 "; 
+				break;
+			default : 
+				$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
+		}
+	}	
+	$stmt = $pdo->prepare($sql);
+	if(isset($_GET['groupCode']) AND $_GET['groupCode']<>""){
+		$stmt->bindParam(':groupCode', $_GET['groupCode']);
+	}
+	if(isset($_GET['search_word']) and isset($_GET['search_word'])){
+		$search_word='%'.$_GET['search_word'].'%';
+		$stmt->bindParam(':search_word', $search_word);
+	}
+	$stmt->execute(); 
+	$iRow=2; while($row = $stmt->fetch() ){
 	// Add some data
 	$objPHPExcel->setActiveSheetIndex(0)		
 		->setCellValue('A'.$iRow, $row['groupCode'])
 		->setCellValue('B'.$iRow, $row['groupName'])
 		->setCellValue('C'.$iRow, $row['group2code'])
 		->setCellValue('D'.$iRow, $row['group2Name'])
-		->setCellValue('E'.$iRow, $row['orderNo'])
+		->setCellValue('E'.$iRow, $row['orderNo2'])
 		->setCellValue('F'.$iRow, $row['id'])
 		->setCellValue('G'.$iRow, $row['title'])
 		->setCellValue('H'.$iRow, $row['name'])
@@ -123,7 +129,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="deivery.xlsx"');
+header('Content-Disposition: attachment;filename="report_person_xls.xlsx"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');

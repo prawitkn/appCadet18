@@ -49,6 +49,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['search_word'])){
 					$queryString.="&search_word=".$_GET['search_word'];
 				}
+				if(isset($_GET['orderBy'])){
+					$queryString.="&orderBy=".$_GET['orderBy'];
+				}
 				
                 $sql = "SELECT a.id 
 				FROM cadet18_person a
@@ -87,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div><!-- /.box-header -->
         <div class="box-body">
 			<div class="row">
-			<div class="col-md-6">					
+			<div class="col-md-6">			<?php echo $queryString;?>		
                     <form id="form1" action="<?=$rootPage;?>.php" method="get" class="form" novalidate>
 						<!--<div class="form-group">
                             <label for="search_word">Shipping marks search key word.</label>
@@ -118,14 +121,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</select>
 							</div>
                         </div>
+						<div class="form-group">
+                            <label for="orderBy">เรียงโดย</label>
+							<div class="input-group">
+								<select id="orderBy" name="orderBy" class="form-control"  >									
+									
+									<option value="1" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==1?' selected ':''):''); ?> >order No.</option>
+									<option value="2" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==2?' selected ':''):''); ?> >group : a->z</option>
+									<option value="3" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==3?' selected ':''):''); ?> >a->z</option>
+									<option value="4" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==4?' selected ':''):''); ?> >id/importing data</option>
+									<option value="5" <?php echo (isset($_GET['orderBy'])?($_GET['orderBy']==5?' selected ':''):''); ?> >group : order No</option>
+								</select>
+							</div>
+                        </div>
 						<input type="submit" class="btn btn-default" value="ค้นหา">
                     </form>
                 </div>    
 			</div>
            <?php
-                $sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`, `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`
-				, `position`, `workPlace`, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`
-				, `groupCode`,`groupName`, `group2code`, `group2Name`, `statusCode`, `retireYear` 
+                $sql = "SELECT  `id`, `orderNo`, `title`,`name`,`surname`, `photo`, `nickname`,`position`, `workPlace`, `workPlace2`
+				, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`
 				, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 				FROM cadet18_person a
 				WHERE 1 ";
@@ -135,18 +150,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 					$sql.="and (a.id = :search_word OR a.fullname like :search_word2) ";
 				}
-				if(isset($_GET['groupCode'])){
-					switch($_GET['groupCode']){
+				if(isset($_GET['orderBy'])){
+					switch($_GET['orderBy']){
 						case 1 : 
-							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo "; 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), orderNo "; 
 							break;
 						case 2 : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
 							break;
+						case 3 : 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), nameForOrder "; 
+							break;
+						case 5 : 
+							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo2 "; 
+							break;
 						default : 
 							$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), a.id "; 		
 					}
-				}
+				}	
+				
 				$sql .="LIMIT $start, $rows "; 
 				
 				$stmt = $pdo->prepare($sql);
@@ -158,6 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$stmt->bindParam(':search_word', $search_word);
 					$stmt->bindParam(':search_word2', $search_word);
 				}
+				
 				
 				$stmt->execute();				
            ?>             
@@ -186,7 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <?= $row['group2Name']; ?>
                     </td>						
 					<td>
-                         <?= $row['fullname']; ?>
+                         <?= $row['title'].' '.$row['name'].'  '.$row['surname']; ?>
                     </td>	
 					<td>
                          <?= $row['position']; ?>
@@ -230,8 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="box-footer">
 				<div class="col-md-12">					  
 					  <a href="report_person_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (.xlsx)</a>
-						<a href="report_person_pdf_photo.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ</a>
-						<a href="report_person_pdf_photo_a6.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ (A6)</a>
+						<a href="report_person_pdf_photo.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ</a>						
 				</div><!-- /.col-md-12 -->
 			  </div><!-- box-footer -->
 			

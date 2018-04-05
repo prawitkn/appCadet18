@@ -27,7 +27,6 @@ if($dateFrom<>""){ $dateToYmd = to_mysql_date($_GET['dateTo']);	}
 $sql = "SELECT COUNT(*) as countTotal 
 FROM cadet18_person a
 WHERE 1 ";
-//AND a.isInvite=1 ";
 if(isset($_GET['groupCode'])){
 	$sql.="and a.groupCode = :groupCode ";
 }
@@ -60,15 +59,15 @@ if($countTotal>0){
 		->setCellValue('E1', 'นามสกุล')
 		->setCellValue('F1', 'การตอบรับ')
 		->setCellValue('G1', 'มาร่วมงาน')
+		->setCellValue('H1', 'order No. 2')
 		;
 		
-		$sql = "SELECT `id`, `orderNo`, `title`, `name`, `surname`, `fullname`, `photo`, `nickname`, `position`
+		$sql = "SELECT `id`, `orderNo`, `orderNo2`, `title`, `name`, `surname`, `fullname`, `photo`, `nickname`, `position`
 		, `groupCode`, `groupName`, `group2code`, `group2Name`
 		, `isInvite`, `isCount`, `statusCode`				
 		, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 		FROM cadet18_person a
-		WHERE 1 
-		AND a.isInvite=1 ";
+		WHERE 1 ";
 		if(isset($_GET['groupCode'])){
 			$sql.="and a.groupCode = :groupCode ";
 		}
@@ -117,6 +116,7 @@ if($countTotal>0){
 		->setCellValue('F'.$iRow, $row['isInvite'])
 		->setCellValue('G'.$iRow, $row['isCount'])
 		->setCellValue('H'.$iRow, $row['group2Name'])
+		->setCellValue('H'.$iRow, $row['orderNo2'])
 		;
 		
 		$iRow+=1;

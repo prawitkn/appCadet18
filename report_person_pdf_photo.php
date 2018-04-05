@@ -173,7 +173,7 @@ if(isset($_GET['search_word']) and isset($_GET['search_word'])){
 if(isset($_GET['groupCode'])){
 	switch($_GET['groupCode']){
 		case 1 : 
-			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), orderNo2 "; 
+			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.orderNo2 AS DECIMAL(10,2)) "; 
 			break;
 		case 2 : 
 			$sql .="ORDER BY CAST(a.groupCode AS UNSIGNED), CAST(a.group2Code AS DECIMAL(10,2)), nameForOrder "; 
