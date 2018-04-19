@@ -64,7 +64,8 @@ if($row['countTotal'] > 0){
 	, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`, `group2code`, `group2Name`, `statusCode`
 	, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 	FROM cadet18_person a
-	WHERE 1 ";
+	WHERE 1 
+	AND a.group2Name NOT LIKE '%เสียชีวิต%' ";
 	if(isset($_GET['groupCode'])){
 		$sql.="and a.groupCode = :groupCode ";
 	}

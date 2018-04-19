@@ -4,13 +4,7 @@
         header("Location: login.php");
     }
 	
-	//database connection string.
-	$is_local = false;
-	if($is_local){
-		include 'db/database_localhost.php';
-	}else{
-		include 'db/database.php';
-	}
+	include_once 'db/db.php';
 		
 	$tb="cadet18_user"; 
 	$sql = "SELECT u.`userId`, u.`userFullname`, u.`userGroupCode`, u.`smId`, u.`userEmail`, u.`userTel`, u.`userPicture`, u.`statusCode` 
@@ -32,4 +26,7 @@
         
         //mysqli_free_result($result_user);  
 		$stmt->closeCursor();
+		
+		//$stmt->free_result();
+		//$stmt->close();
     }

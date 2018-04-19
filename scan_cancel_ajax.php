@@ -10,7 +10,7 @@ try{
 	//We start our transaction.
 	//$pdo->beginTransaction();
 	
-	$sql = "UPDATE `".$tb."` SET isCount=1 WHERE id=:id ";
+	$sql = "UPDATE `".$tb."` SET isCount=0 WHERE id=:id ";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':id', $id);
 	$stmt->execute();
@@ -20,7 +20,7 @@ try{
 	
     //return JSON
 	header('Content-Type: application/json');
-	echo json_encode(array('success' => true, 'message' => 'ลงทะเบียนเรียบร้อย'));	
+	echo json_encode(array('success' => true, 'message' => 'ยกเลิกลงทะเบียนเรียบร้อย'));	
 } 
 //Our catch block will handle any exceptions that are thrown.
 catch(Exception $e){

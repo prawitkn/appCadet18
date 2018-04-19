@@ -7,9 +7,9 @@ try{
 	$barcode = $_POST['barcode'];
 	$id=(int)$barcode;	
 	
-	$sql = "SELECT `id`, `title`, `name`, `surname`, `fullname`, `photo`, `nickname`
+	$sql = "SELECT `id`, `coupon`, `title`, `name`, `surname`, `fullname`, `photo`, `nickname`
 	, `position`, `workPlace`, `workPlace2`, `mobileNo`
-	, `groupCode`, `groupName`, `group2code`, `group2Name`
+	, `groupCode`, `groupName`, `group2code`, `group2Name`, `isCount`
 	, `statusCode`
 	FROM `".$tb."` WHERE id=:id ";
 	$stmt = $pdo->prepare($sql);

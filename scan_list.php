@@ -177,7 +177,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$search_word='%'.$_GET['search_word'].'%';
 					$stmt->bindParam(':search_word', $search_word);
 					$stmt->bindParam(':search_word2', $search_word);
-				}				
+				}
+				
 				$stmt->execute();				
            ?>             
             <table class="table table-striped">

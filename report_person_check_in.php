@@ -241,7 +241,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			
 			<div class="box-footer">
-				<div class="col-md-12">					  
+				<div class="col-md-12">	
+						<a href="report_person_pdf_photo1.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-print"></i> รายงานข้อมูลและรูปภาพ (1) ทั้งหมด (.pdf)</a>						
+						
 					  <a href="report_person_check_in_xls.php?<?=$queryString;?>" class="btn btn-default  pull-right"  style="margin-right: 5px;"><i class="glyphicon glyphicon-xls"></i> รายงานข้อมูล (.xlsx)</a>
 				</div>
 			  </div><!-- box-footer -->

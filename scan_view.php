@@ -71,10 +71,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumInvite+=$row['inviteTotal'];
 					$sumCount+=$row['countTotal'];
 					?>
-					<h3>จปร.29 </h3>
-					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
-					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+					<h1>จปร.29 </h1>
+					<h3 style="color: blue;">ทั้งหมด <span id="lblInvite1"><?=$row['inviteTotal'];?></span> นาย</h3>
+					<h3 style="color: #009933;">ลงทะเบียน <span id="lblCheckedIn1"><?=$row['countTotal'];?></span> นาย</h3>
+					<h3 style="color: #ff6666;">คงเหลือ <span id="lblPending1"><?=$row['inviteTotal']-$row['countTotal'];?></span> นาย</h3>
 				</div>
 				<div class="col-md-3">
 					<img src="dist/img/typeLogo/2.jpg" height="200px;" />
@@ -87,10 +87,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumInvite+=$row['inviteTotal'];
 					$sumCount+=$row['countTotal'];
 					?>
-					<h3>นนร.75 </h3>
-					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
-					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+					<h1>นนร.75 </h1>
+					<h3 style="color: blue;">ทั้งหมด <span id="lblInvite2"><?=$row['inviteTotal'];?></span> นาย</h3>
+					<h3 style="color: #009933;">ลงทะเบียน <span id="lblCheckedIn2"><?=$row['countTotal'];?></span> นาย</h3>
+					<h3 style="color: #ff6666;">คงเหลือ <span id="lblPending2"><?=$row['inviteTotal']-$row['countTotal'];?></span> นาย</h3>
 				</div>
 				<div class="col-md-3">
 					<img src="dist/img/typeLogo/3.jpg" height="200px;" />
@@ -103,10 +103,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumInvite+=$row['inviteTotal'];
 					$sumCount+=$row['countTotal'];
 					?>
-					<h3>นนอ.25 </h3>
-					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
-					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+					<h1>นนอ.25 </h1>
+					<h3 style="color: blue;">ทั้งหมด <span id="lblInvite3"><?=$row['inviteTotal'];?></span> นาย</h3>
+					<h3 style="color: #009933;">ลงทะเบียน <span id="lblCheckedIn3"><?=$row['countTotal'];?></span> นาย</h3>
+					<h3 style="color: #ff6666;">คงเหลือ <span id="lblPending3"><?=$row['inviteTotal']-$row['countTotal'];?></span> นาย</h3>
 				</div>
 				<div class="col-md-3">
 					<img src="dist/img/typeLogo/4.jpg" height="200px;" />
@@ -119,19 +119,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$sumInvite+=$row['inviteTotal'];
 					$sumCount+=$row['countTotal'];
 					?>
-					<h3>นรต.34 </h3>
-					<h3>ทั้งหมด <?=$row['inviteTotal'];?> นาย</h3>
-					<h3>ลงทะเบียน <?=$row['countTotal'];?> นาย</h3>
-					<h3>คงเหลือ <?=$row['inviteTotal']-$row['countTotal'];?> นาย</h3>
+					<h1>นรต.34 </h1>
+					<h3 style="color: blue;">ทั้งหมด <span id="lblInvite4"><?=$row['inviteTotal'];?></span> นาย</h3>
+					<h3 style="color: #009933;">ลงทะเบียน <span id="lblCheckedIn4"><?=$row['countTotal'];?></span> นาย</h3>
+					<h3 style="color: #ff6666;">คงเหลือ <span id="lblPending4"><?=$row['inviteTotal']-$row['countTotal'];?></span> นาย</h3>
 				</div>				
             </div>
             <!--/.row-->     
 
 			<div class="row" style="text-align: center;"> 
 				<div class="col-md-12">
-					<h3>ยอดรวม</h3>
-					<h3>ทั้งหมด <?=$sumInvite;?> นาย</h3>
-					<h3>ลงทะเบียน <?=$sumCount;?> นาย</h3>
+					<h1>ยอดรวม</h1>
+					<h3 style="color: blue;">ทั้งหมด <span id="lblInvite5"><?=$sumInvite;?> </span>นาย</h3>
+					<h3 style="color: #009933;">ลงทะเบียน <span id="lblCheckedIn5"><?=$sumCount;?> </span>นาย</h3>
+					<h3 style="color: #ff6666;">คงเหลือ <span id="lblPending5"><?=$sumInvite-$sumCount;?></span> นาย</h3>
 				</div>		
             </div>
             <!--/.row-->       
@@ -168,88 +169,67 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script> 
 $(document).ready(function() {
 	$('#barcode').select();
-	setTimeout(function(){ location.reload(); }, 10000);
-	$('#barcode').keyup(function(e){
-		if(e.keyCode == 13)
-		{	
-			var params = {
-				barcode: $('#barcode').val()
-			}; //alert(params.barcode);
-			/* Send the data using post and put the results in a div */
-			$.post({
-				url: 'scan_ajax.php',
-				data: params,
-				dataType: 'json'
-			}).done(function (data) {					
-				if (data.success){ 
-					/*$.smkAlert({
-						text: data.message,
-						type: 'success',
-						position:'top-center'
-					});*/
-					$itm=$.parseJSON(data.itm);
-					$('#fullname').text($itm.fullname);
-					$('#group').text($itm.groupName);
-					$('#position').text($itm.position);
-					$('#img').attr('src',$itm.photo);
-					$('#barcode').select();
-					//location.reload();
-				} else {
-					alert(data.message);
-					$.smkAlert({
-						text: data.message,
-						type: 'danger'//,
-					//                        position:'top-center'
-					});
-				}
+	
+	setTimeout(function(){ getList(); }, 5000);
+	
+	function getList(){		
+		var params = {
+			action: 'getList'
+		}; //alert(params.sendDate);
+		/* Send the data using post and put the results in a div */
+		  $.ajax({
+			  url: "scan_view_ajax.php",
+			  type: "post",
+			  data: params,
+			datatype: 'json',
+			  success: function(data){	//alert(data);
+					//data=$.parseJSON(data);
+					var sumInviteTotal=0;
+					var sumCountTotal=0;
+					var sumPendingTotal=0;
+					
+					switch(data.rowCount){
+						case 0 : alert('Data not found.');
+							//$('#tbl_items tbody').empty();
+							return false; break;
+						default : 							
+							//$('#tbl_items tbody').empty();
+							$.each($.parseJSON(data.data), function(key,value){
+								if(value.groupCode==1){
+									$('#lblInvite1').fadeOut('slow').text(value.inviteTotal).fadeIn('slow');
+									$('#lblCheckedIn1').fadeOut('slow').text(value.countTotal).fadeIn('slow');
+									$('#lblPending1').fadeOut('slow').text(value.inviteTotal-value.countTotal).fadeIn('slow');
+								}
+								if(value.groupCode==2){
+									$('#lblInvite2').fadeOut('slow').text(value.inviteTotal).fadeIn('slow');
+									$('#lblCheckedIn2').fadeOut('slow').text(value.countTotal).fadeIn('slow');
+									$('#lblPending2').fadeOut('slow').text(value.inviteTotal-value.countTotal).fadeIn('slow');
+								}
+								if(value.groupCode==3){
+									$('#lblInvite3').fadeOut('slow').text(value.inviteTotal).fadeIn('slow');
+									$('#lblCheckedIn3').fadeOut('slow').text(value.countTotal).fadeIn('slow');
+									$('#lblPending3').fadeOut('slow').text(value.inviteTotal-value.countTotal).fadeIn('slow');
+								}
+								if(value.groupCode==4){
+									$('#lblInvite4').fadeOut('slow').text(value.inviteTotal).fadeIn('slow');
+									$('#lblCheckedIn4').fadeOut('slow').text(value.countTotal).fadeIn('slow');
+									$('#lblPending4').fadeOut('slow').text(value.inviteTotal-value.countTotal).fadeIn('slow');
+								}
+								sumInviteTotal=(int)sumInviteTotal+(int)value.inviteTotal;
+								sumCountTotal=(int)sumCountTotal+(int)value.countTotal;
+								sumPendingTotal=(int)sumPendingTotal+((int)value.inviteTotal-(int)value.countTotal); 	
+							});
+							$('#lblInvite5').fadeOut('slow').text(sumInviteTotal).fadeIn('slow');
+							$('#lblCheckedIn5').fadeOut('slow').text(sumCountTotal).fadeIn('slow');
+							$('#lblPending5').fadeOut('slow').text(sumPendingTotal).fadeIn('slow');
+						//('#modal_search_person').modal('show');	
+					}	
+			  }   
 			}).error(function (response) {
 				alert(response.responseText);
 			}); 
-		}/* e.keycode=13 */	
-	});
+	}
 	
-	
-	
-	/*$('#form1').on("submit", function(e) {
-		if($('#newPassword').val() != $('#confirmPassword').val()){
-			alert('New password not match confirm password');
-			return false;
-		}
-		if ($('#form1').smkValidate()) {			
-			$.ajax({
-			url: '<?=$rootPage;?>_change_pw_ajax.php',
-			type: 'POST',
-			data: new FormData( this ),
-			processData: false,
-			contentType: false,
-			dataType: 'json'
-			}).done(function (data) { alert(data);
-				if (data.success){  
-					$.smkAlert({
-						text: data.message,
-						type: 'success',
-						position:'top-center'
-					});
-					window.location.href = "logout.php";
-				}else{
-					$.smkAlert({
-						text: data.message,
-						type: 'danger',
-						position:'top-center'
-					});
-				}
-				alert('Success');
-				window.location.href = "<?=$rootPage;?>.php";
-			}).error(function (response) {
-				alert(response.responseText);
-			});  
-			//.ajax		
-			e.preventDefault();
-		}   
-		//end if 
-		e.preventDefault();
-	});
-	//form.submit*/
 });
 //doc ready
 </script>
