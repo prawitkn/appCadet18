@@ -32,10 +32,10 @@ try{
 	//We start our transaction.
 	//$pdo->beginTransaction();
 	
-	$sql = "UPDATE `".$tb."` SET isCount=1 WHERE id=:id ";
+	/*$sql = "UPDATE `".$tb."` SET isCount=1 WHERE id=:id ";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':id', $id);
-	$stmt->execute();
+	$stmt->execute();*/
 	
 	//We've got this far without an exception, so commit the changes.
     //$pdo->commit();

@@ -164,14 +164,7 @@ $sql = "SELECT  `id`,  `coupon`, `orderNo`, `mid`,`title`,`name`,`surname`,  `fu
 , IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
 FROM cadet18_person a
 WHERE 1 "; //11
-if($_GET['groupCode']==2){
-	$sql = "SELECT  `id`, `orderNo`, `mid`,`title`,`name`,`surname`,  `fullname`, `photo`, `nickname`, `origin`, `genNo`, `subService`,`position`, `workPlace`, `workPlace2`
-	, `dateOfBirth`, `mobileNo`, `tel`, `email`, `address`,`address2`,`groupCode`, `groupName`,  case `group2code` when group2Code<>11 then 0 else 1 end as group2Code
-	, case `group2code` when group2Code<>11 then 0 else 1 end group2Name, `statusCode`, `retireYear` 
-	, IF(left(name,1) IN ('เ','แ','ไ','ใ','โ'),right(name,CHAR_LENGTH(name)-1),name) as nameForOrder 
-	FROM cadet18_person a
-	WHERE 1 "; //
-}
+
 
 if(isset($_GET['groupCode'])){
 	$sql.="and a.groupCode = :groupCode ";
